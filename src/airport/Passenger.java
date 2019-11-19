@@ -22,7 +22,9 @@ public class Passenger extends Thread{
         this.suitcase_B = suitcase_B; 
     }
     
-    
+    public void GoingToTheConveyor(){
+        
+    }
     
     
 }

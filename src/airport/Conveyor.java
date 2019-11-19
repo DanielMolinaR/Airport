@@ -17,12 +17,9 @@ public class Conveyor {
     
     ArrayList<Suitcase> conveyor = new ArrayList<Suitcase>();
 
-    private Lock locket_passenger = new ReentrantLock();        // passengers locket
-    private Condition full = locket_passenger.newCondition();   // if the conveyor is full the passengers have to wait for leaving their suitcase
-
-    private Lock locket_employee = new ReentrantLock();         // employees locket
-    private Condition empty = locket_employee.newCondition();   // if the conveyor is empty the employees have to wait
-
+    private Lock locket_conveyor = new ReentrantLock();        
+    private Condition full = locket_conveyor.newCondition(); 
+    private Condition empty = locket_conveyor.newCondition();   
     
     public void LeaveSuitcase(Suitcase suitcases, ArrayList conveyor){
         try {
@@ -32,27 +29,27 @@ public class Conveyor {
                     full.await();
                 } catch(InterruptedException ie){ }
             }
+            this.conveyor.add(suitcase);
+            empty.signal();
         }
         finally{
-            locket_passenger.unlock();
-            empty.signal();
-            //return conveyor.add(suitcase);
+            locket_conveyor.unlock();
         }
     } 
     
     public void TakeSuitcase (ArrayList conveyor){
         try{
-            locket_employee.lock();
+            locket_conveyor.lock();
             while (this.conveyor.lenght()==0){
                 try {
                 empty.await();
                 } catch(InterruptedException ie){ }
             }
+            this.conveyor.remove[0];
+            full.signal();
         }
         finally{
-            locket_employee.unlock();
-            full.signal();
-            //return conveyor.remove[0];
+            locket_conveyor.unlock();
         }
     }
 }
