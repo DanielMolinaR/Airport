@@ -18,18 +18,30 @@ public class Conveyor {
     
     ArrayList<Suitcase> conveyor = new ArrayList<Suitcase>();
 
+    public Conveyor(ArrayList<Suitcase> conveyor) {
+        this.conveyor = conveyor;
+    }
+
+    public ArrayList<Suitcase> getConveyor() {
+        return conveyor;
+    }
+
+    public void setConveyor(ArrayList<Suitcase> conveyor) {
+        this.conveyor = conveyor;
+    }
+
+    
+
     /*private Lock locket_conveyor = new ReentrantLock();        
-    /*private Condition full = locket_conveyor.newCondition(); 
+    private Condition full = locket_conveyor.newCondition(); 
     private Condition empty = locket_conveyor.newCondition();   
     
-   /* public void LeaveSuitcase(Suitcase suitcase, ArrayList conveyor){
+   public void LeaveSuitcase(Suitcase suitcase,){
         try {
             locket_conveyor.lock();
-            while (this.conveyor.size()==8){
-                try {
-                    full.await();
-                } catch(InterruptedException ie){ }
-            }
+            try {
+                full.await();
+            } catch(InterruptedException ie){ }
             this.conveyor.add(suitcase);
             empty.signal();
         }
@@ -38,7 +50,7 @@ public class Conveyor {
         }
     } 
     
-    public void TakeSuitcase (ArrayList conveyor){
+    /*public void TakeSuitcase (ArrayList conveyor){
         try{
             locket_conveyor.lock();
             while (this.conveyor.lenght()==0){

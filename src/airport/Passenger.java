@@ -55,8 +55,17 @@ public class Passenger extends Thread{
     }
         
 
-    public void GoToConveyor(){
-        
-    }
+    /*public void GoToConveyor(){
+       while (conveyor.getConveyor().size()<8){ 
+            try{
+                sleep(500 + (int)(1000*Math.random()));  //wait between 0.5 y 1 sec
+            } catch (InterruptedException e){}
+            conveyor.LeaveSuitcase(suitcase_A);
+            try{
+                sleep(500 + (int)(1000*Math.random()));  //wait between 0.5 y 1 sec
+            } catch (InterruptedException e){}
+            conveyor.LeaveSuitcase(suitcase_B);
+        }
+    }*/
     
 }

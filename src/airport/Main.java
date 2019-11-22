@@ -22,6 +22,9 @@ public class Main {
         ArrayList<Passenger> passenger_queu = new ArrayList<>();
         passenger_queu = Airport.CreatePassenger(passenger_queu);
         Airport.StartPassenger(passenger_queu);
+        ArrayList<Employee> employee_queu = new ArrayList<>();
+        employee_queu = Airport.CreateEmployee(employee_queu);
+        Airport.StartEmployee(employee_queu);
     }
     
 }

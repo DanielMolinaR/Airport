@@ -13,16 +13,15 @@ import java.util.ArrayList;
  */
 public class Airport {
 
-    //private ArrayList<Passenger> passenger_queu = new ArrayList<>();
     private static Suitcase suitcase;
 
     public static ArrayList<Passenger> CreatePassenger(ArrayList<Passenger> passenger_queu) {
 
         for (int i = 0; i < 40; i++) {
-            Passenger passenger = new Passenger("Pasajero_" + i, suitcase, suitcase);
+            Passenger passenger = new Passenger("Pasajero_", suitcase, suitcase);
             passenger.setId_passenger("Pasajeor_"+ (i+1));
             passenger_queu.add(passenger);
-            System.out.println("Se ha creado el pasajero"+ passenger.getId_passenger());
+            System.out.println("Se ha creado el "+ passenger.getId_passenger());
         }
         return passenger_queu;
     }
@@ -31,7 +30,26 @@ public class Airport {
 
         for (Passenger passenger : passenger_queu){
             passenger.start();
-            System.out.println("Se ha lanzado el pasajero"+ passenger.getId_passenger());
+            System.out.println("Se ha lanzado el "+ passenger.getId_passenger());
+        }
+    }
+
+    public static ArrayList<Employee> CreateEmployee(ArrayList<Employee> employee_queu) {
+
+        for (int i = 0; i < 2; i++) {
+            Employee employee = new Employee("Empleado_");
+            employee.setId_employee("Empleado_"+ (i+1));
+            employee_queu.add(employee);
+            System.out.println("Se ha creado el "+ employee.getId_employee());
+        }
+        return employee_queu;
+    }
+
+    public static void StartEmployee(ArrayList<Employee> employee_queu){
+
+        for (Employee employee : employee_queu){
+            employee.start();
+            System.out.println("Se ha lanzado el "+ employee.getId_employee());
         }
     }
 }
