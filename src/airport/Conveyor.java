@@ -6,8 +6,9 @@
 package airport;
 
 import java.util.ArrayList;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
+//import java.util.concurrent.locks.Condition;
+//import java.util.concurrent.locks.Lock;
+//import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
@@ -17,14 +18,14 @@ public class Conveyor {
     
     ArrayList<Suitcase> conveyor = new ArrayList<Suitcase>();
 
-    private Lock locket_conveyor = new ReentrantLock();        
-    private Condition full = locket_conveyor.newCondition(); 
+    /*private Lock locket_conveyor = new ReentrantLock();        
+    /*private Condition full = locket_conveyor.newCondition(); 
     private Condition empty = locket_conveyor.newCondition();   
     
-    public void LeaveSuitcase(Suitcase suitcases, ArrayList conveyor){
+   /* public void LeaveSuitcase(Suitcase suitcase, ArrayList conveyor){
         try {
-            locket_passenger.lock();
-            while (this.conveyor.lenght()==8){
+            locket_conveyor.lock();
+            while (this.conveyor.size()==8){
                 try {
                     full.await();
                 } catch(InterruptedException ie){ }
@@ -51,5 +52,5 @@ public class Conveyor {
         finally{
             locket_conveyor.unlock();
         }
-    }
+    }*/
 }

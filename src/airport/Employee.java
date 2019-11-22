@@ -11,5 +11,6 @@ package airport;
  */
 public class Employee extends Thread{
     
-     private String id_emplpyee; 
+     //private String id_emplpyee; 
+     
 }

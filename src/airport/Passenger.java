@@ -21,10 +21,42 @@ public class Passenger extends Thread{
         this.suitcase_A = suitcase_A; 
         this.suitcase_B = suitcase_B; 
     }
-    
-    public void GoingToTheConveyor(){
+
+    public String getId_passenger() {
+        return id_passenger;
+    }
+
+    public void setId_passenger(String id_passenger) {
+        this.id_passenger = id_passenger;
+    }
+
+    public Conveyor getConveyor() {
+        return conveyor;
+    }
+
+    public void setConveyor(Conveyor conveyor) {
+        this.conveyor = conveyor;
+    }
+
+    public Suitcase getSuitcase_A() {
+        return suitcase_A;
+    }
+
+    public void setSuitcase_A(Suitcase suitcase_A) {
+        this.suitcase_A = suitcase_A;
+    }
+
+    public Suitcase getSuitcase_B() {
+        return suitcase_B;
+    }
+
+    public void setSuitcase_B(Suitcase suitcase_B) {
+        this.suitcase_B = suitcase_B;
+    }
+        
+
+    public void GoToConveyor(){
         
     }
-    
     
 }

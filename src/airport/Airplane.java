@@ -5,10 +5,14 @@
  */
 package airport;
 
+//import java.util.ArrayList;
+
 /**
  *
  * @author Daniel
  */
-public class Plane {
+public class Airplane {
     
+    //private ArrayList<Suitcase> hold = new ArrayList<>();
+
 }

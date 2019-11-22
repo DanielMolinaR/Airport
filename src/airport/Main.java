@@ -5,6 +5,8 @@
  */
 package airport;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Daniel
@@ -16,6 +18,10 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        ArrayList<Passenger> passenger_queu = new ArrayList<>();
+        passenger_queu = Airport.CreatePassenger(passenger_queu);
+        Airport.StartPassenger(passenger_queu);
     }
     
 }
