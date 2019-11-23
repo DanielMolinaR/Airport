@@ -1,5 +1,7 @@
 package airport;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Daniel
@@ -8,12 +10,14 @@ public class Employee extends Thread{
     
      private Conveyor conveyor;  
      private String id_employee; 
-     private Suitcase suitcase;
+     private ArrayList<Suitcase> suitcases;
      private Airplane airplane;
      
-     public Employee(String id_employee, Suitcase suitcase) { 
+     public Employee(String id_employee, Conveyor conveyor, Airplane airplane) { 
           this.id_employee = id_employee;
-          this.suitcase = suitcase;
+          this.suitcases = new ArrayList<>();
+          this.conveyor = conveyor;
+          this.airplane = airplane;
       }
 
      public String getId_employee() {
@@ -23,23 +27,20 @@ public class Employee extends Thread{
      public void setId_employee(String id_employee) {
           this.id_employee = id_employee;
      }
-  
-     public void EmployeeGoConveyor(){
-          while (conveyor.getConveyor().size()>0){ 
-               this.setSuitcase(conveyor.TakeSuitcase());
+     
+
+     public void run(){  
+          while (true){ 
+               this.suitcases.add(conveyor.TakeSuitcase());
                try{
-                   sleep(400 + (int)(7000*Math.random()));  //wait between 0.4 y 0.7 sec
-               } catch (InterruptedException e){}
-               airplane.LeaveSuitcaseAirplane(this.suitcase);
-               this.setSuitcase(null);
-           }
+                    sleep(400 + (int)(700*Math.random()));  //wait between 0.4 y 0.7 sec
+                } catch (InterruptedException e){}
+               System.out.println("El "+ this.getId_employee() + " lleva " + this.suitcases.get(0).getSuitcase());
+               System.out.println("");
+               this.airplane.LeaveSuitcaseAirplane(this.suitcases.remove(0));
+               try{
+                    sleep(400 + (int)(700*Math.random()));  //wait between 0.4 y 0.7 sec
+                } catch (InterruptedException e){} 
+               }
        }
-
-     public Suitcase getSuitcase() {
-          return suitcase;
-     }
-
-     public void setSuitcase(Suitcase suitcase) {
-          this.suitcase = suitcase;
-     }
 }

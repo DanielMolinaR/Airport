@@ -19,12 +19,13 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         
+        Airport airport = new Airport();
         ArrayList<Passenger> passenger_queu = new ArrayList<>();
-        passenger_queu = Airport.CreatePassenger(passenger_queu);
-        Airport.StartPassenger(passenger_queu);
+        passenger_queu = airport.CreatePassenger(passenger_queu);
+        airport.StartPassenger(passenger_queu);
         ArrayList<Employee> employee_queu = new ArrayList<>();
-        employee_queu = Airport.CreateEmployee(employee_queu);
-        Airport.StartEmployee(employee_queu);
+        employee_queu = airport.CreateEmployee(employee_queu);
+        airport.StartEmployee(employee_queu);
     }
     
 }

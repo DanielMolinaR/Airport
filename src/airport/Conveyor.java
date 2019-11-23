@@ -6,9 +6,9 @@
 package airport;
 
 import java.util.ArrayList;
-//import java.util.concurrent.locks.Condition;
-//import java.util.concurrent.locks.Lock;
-//import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
@@ -16,33 +16,24 @@ import java.util.ArrayList;
  */
 public class Conveyor {
     
-    ArrayList<Suitcase> conveyor = new ArrayList<Suitcase>();
-
-    public Conveyor(ArrayList<Suitcase> conveyor) {
-        this.conveyor = conveyor;
-    }
-
-    public ArrayList<Suitcase> getConveyor() {
-        return conveyor;
-    }
-
-    public void setConveyor(ArrayList<Suitcase> conveyor) {
-        this.conveyor = conveyor;
-    }
-
-    
-
-    /*private Lock locket_conveyor = new ReentrantLock();        
+    private ArrayList<Suitcase> conveyor;
+    private Lock locket_conveyor = new ReentrantLock();        
     private Condition full = locket_conveyor.newCondition(); 
     private Condition empty = locket_conveyor.newCondition();   
+
+    public Conveyor() {
+        this.conveyor = new ArrayList<>();
+    }
     
-   public void LeaveSuitcase(Suitcase suitcase,){
+   public void LeaveSuitcaseConveyor(Suitcase suitcase){
         try {
             locket_conveyor.lock();
             try {
-                full.await();
+                if (this.isConveyorFull())
+                    full.await();
             } catch(InterruptedException ie){ }
-            this.conveyor.add(suitcase);
+            conveyor.add(suitcase);
+            PrintConveyor();
             empty.signal();
         }
         finally{
@@ -50,19 +41,36 @@ public class Conveyor {
         }
     } 
     
-    /*public void TakeSuitcase (ArrayList conveyor){
+    public Suitcase TakeSuitcase() {
         try{
             locket_conveyor.lock();
-            while (this.conveyor.lenght()==0){
-                try {
-                empty.await();
-                } catch(InterruptedException ie){ }
-            }
-            this.conveyor.remove[0];
-            full.signal();
+            try {
+                if (this.isConveyorEmpty())
+                    empty.await();
+            } catch(InterruptedException ie){ }
+            return conveyor.remove(0);
         }
         finally{
+            PrintConveyor();
+            full.signal();
             locket_conveyor.unlock();
         }
-    }*/
+    }
+
+    private boolean isConveyorFull(){
+        return this.conveyor.size() == 8;
+    }
+
+    private boolean isConveyorEmpty(){
+        return this.conveyor.isEmpty();
+    }
+
+    public void PrintConveyor(){
+        System.out.print("La cinta tiene: ");
+        for (Suitcase suitcases : conveyor){
+            System.out.print(suitcases.getSuitcase() + " // ");
+        }
+        System.out.println("");
+        System.out.println("");
+    }
 }

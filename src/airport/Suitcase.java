@@ -11,17 +11,14 @@ package airport;
  */
 public class Suitcase {
     
-    private String suitcase = "Suitcase";
+    private final String suitcase;
 
     public Suitcase(String suitcase) {
         this.suitcase = suitcase;
     }
 
     public String getSuitcase() {
-        return suitcase;
+        return this.suitcase;
     }
 
-    public void setSuitcase(String suitcase) {
-        this.suitcase = suitcase;
-    }
 }
