@@ -120,9 +120,10 @@ public class Airport {
 
         LaunchAllEmployees(employee_queu);
 
-        for (int i = 0; i<passenger_queu.size(); i++){
+        passenger_queu.notifyAll();
+        /*for (int i = 0; i<passenger_queu.size(); i++){
             passenger_queu.get(i).notify();
-        }
+        }*/
     }
 
     /*public static void PrintQueu(ArrayList<Passenger> passenger_queu) {
