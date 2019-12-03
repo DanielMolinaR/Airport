@@ -29,7 +29,7 @@ public class Airplane {
     }
     
     public void PrintHold(){
-        System.out.print("El avión tiene: ");
+        System.out.print("El AVIÓN tiene: ");
         for (Suitcase suitcases : hold){
             System.out.print(suitcases.getSuitcase() + " // ");
         }

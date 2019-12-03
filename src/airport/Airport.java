@@ -60,15 +60,19 @@ public class Airport {
         }
     }
 
+    
     // Start and stop of threads
-    public void Pause1Employee(ArrayList <Employee> employee_queu, String employee_stopped){
+    public void Pause1Employee(ArrayList <Employee> employee_queu, String employee_stopped) {
 
         int i = 0;
         while (!employee_stopped.equals(employee_queu.get(i).getId_employee())){
             i++;
         }
 
-        employee_queu.get(i).stop();
+        try {
+            employee_queu.get(i).wait(); 
+        }
+        catch (InterruptedException ie){}
 
     }
 
@@ -79,51 +83,52 @@ public class Airport {
             i++;
         }
 
-        employee_queu.get(i).start();
+        employee_queu.get(i).notify(); // esta mal tiene que ser signal implementar monitores
 
     }
 
     public void PauseAllEmployess(ArrayList <Employee> employee_queu){
 
         for (int i = 0; i<employee_queu.size(); i++){
-            employee_queu.get(i).stop();
+            try {
+                employee_queu.get(i).wait(); 
+            }
+            catch (InterruptedException ie){}
         }
     }
 
     public void LaunchAllEmployees(ArrayList <Employee> employee_queu){
 
         for (int i = 0; i<employee_queu.size(); i++){
-            employee_queu.get(i).start();
+            employee_queu.get(i).notify(); // esta mal tiene que ser signal implementar monitores
         }
     }
 
     public void PauseAll(ArrayList <Employee> employee_queu, ArrayList <Passenger> passenger_queu){
 
-        for (int i = 0; i<employee_queu.size(); i++){
-            employee_queu.get(i).start();
-        }
+        PauseAllEmployess(employee_queu);
 
         for (int i = 0; i<passenger_queu.size(); i++){
-            passenger_queu.get(i).start();
+            try {
+                passenger_queu.get(i).wait();
+            }
+            catch (InterruptedException ie){}
         }
     }
 
     public void LaunchAll(ArrayList <Employee> employee_queu, ArrayList <Passenger> passenger_queu){
 
-        for (int i = 0; i<employee_queu.size(); i++){
-            employee_queu.get(i).start();
-        }
+        LaunchAllEmployees(employee_queu);
 
         for (int i = 0; i<passenger_queu.size(); i++){
-            passenger_queu.get(i).start();
+            passenger_queu.get(i).notify();
         }
     }
-
-
 
     /*public static void PrintQueu(ArrayList<Passenger> passenger_queu) {
         for (Passenger passenger : passenger_queu){
             System.out.println(passenger.getId_passenger());
         }
     }*/
+
 }

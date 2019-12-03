@@ -29,7 +29,7 @@ public class Employee extends Thread{
      }
      
 
-     public void run(){  
+     public synchronized void run(){  
           while (true){ 
                this.suitcases.add(conveyor.TakeSuitcase());
                try{

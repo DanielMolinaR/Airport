@@ -44,7 +44,7 @@ public class Passenger extends Thread{
 
 
 
-    public void run(){
+    public synchronized void run(){
         try{
             sleep(500 + (int)(1000*Math.random()));  //wait between 0.5 y 1 sec
         } catch (InterruptedException e){}
