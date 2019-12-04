@@ -77,7 +77,6 @@ public class Conveyor {
             return conveyor.remove(0);
         }
         finally{
-            PrintConveyor();
             full.signal();
             locket_conveyor.unlock();
         }
