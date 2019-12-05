@@ -12,7 +12,8 @@ public class Employee extends Thread{
      private String id_employee; 
      private ArrayList<Suitcase> suitcases;
      private Airplane airplane;
-     
+     private Logger logger;
+
      public Employee(String id_employee, Conveyor conveyor, Airplane airplane) { 
           this.id_employee = id_employee;
           this.suitcases = new ArrayList<>();

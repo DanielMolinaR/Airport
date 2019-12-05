@@ -20,9 +20,11 @@ public class Conveyor {
     private Lock locket_conveyor = new ReentrantLock();        
     private Condition full = locket_conveyor.newCondition(); 
     private Condition empty = locket_conveyor.newCondition();  
+    private Logger logger;
 
     public Conveyor() {
         this.conveyor = new ArrayList<>();
+        this.logger = new Logger();
     }
     
    public void LeaveSuitcaseConveyor(Suitcase suitcase){
@@ -45,7 +47,7 @@ public class Conveyor {
                     full.await();
             } catch(InterruptedException ie){ }
             conveyor.add(suitcase);
-            PrintConveyor();
+            this.logger.PrintConveyor(this.conveyor);
             empty.signal();
         }
         finally{
@@ -90,12 +92,12 @@ public class Conveyor {
         return this.conveyor.isEmpty();
     }
 
-    public void PrintConveyor(){
+    /*public void PrintConveyor(){
         System.out.print("La CINTA tiene: ");
         for (Suitcase suitcases : conveyor){
             System.out.print(suitcases.getSuitcase() + " // ");
         }
         System.out.println("");
         System.out.println("");
-    }
+    }*/
 }
