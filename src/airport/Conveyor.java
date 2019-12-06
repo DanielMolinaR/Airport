@@ -47,7 +47,7 @@ public class Conveyor {
                     full.await();
             } catch(InterruptedException ie){ }
             conveyor.add(suitcase);
-            this.logger.PrintConveyor(this.conveyor);
+            this.logger.Conveyor(this.conveyor);
             empty.signal();
         }
         finally{

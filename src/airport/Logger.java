@@ -22,7 +22,7 @@ public class Logger{
         semaphore = new Semaphore(1);
     }
 
-    public void PrintConveyor(ArrayList<Suitcase> conveyor){
+    public void Conveyor(ArrayList<Suitcase> conveyor){
         try {
 
             semaphore.acquire();
@@ -39,5 +39,52 @@ public class Logger{
         }
     }
 
+    public void PassengerCreated(Passenger passenger){
+        try {
+
+            semaphore.acquire();
+
+            System.out.println("Se ha creado el " + passenger.getId_passenger());
+        } catch(InterruptedException ie){ }
+        finally{
+            semaphore.release();
+        }
+    }
+    
+    public void PassengerLaunched(Passenger passenger){
+        try {
+
+            semaphore.acquire();
+
+            System.out.println("Se ha lanzado el " + passenger.getId_passenger());
+        } catch(InterruptedException ie){ }
+        finally{
+            semaphore.release();
+        }
+    }
+    
+    public void EmployeeCreated(Employee employee){
+        try {
+
+            semaphore.acquire();
+
+            System.out.println("Se ha creado el " + employee.getId_employee());
+        } catch(InterruptedException ie){ }
+        finally{
+            semaphore.release();
+        }
+    }
+
+    public void EmployeeLaunched(Employee employee){
+        try {
+
+            semaphore.acquire();
+
+            System.out.println("Se ha lanzado el " + employee.getId_employee());
+        } catch(InterruptedException ie){ }
+        finally{
+            semaphore.release();
+        }
+    }
 
 }
