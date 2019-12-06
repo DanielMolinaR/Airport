@@ -87,4 +87,38 @@ public class Logger{
         }
     }
 
+    public void EmployeeCarrySuitcase(Employee employee, Suitcase suitcase){
+        try {
+
+            semaphore.acquire();
+
+            System.out.println("El "+ employee.getId_employee() + " lleva " + suitcase.getSuitcase());
+            System.out.println("");
+        } catch(InterruptedException ie){ }
+        finally{
+            semaphore.release();
+        }
+    }
+
+    public void EmployeeGettingBack(Employee employee){
+        try {
+
+            semaphore.acquire();
+
+            System.out.println("El "+ employee.getId_employee() + " está volviendo");
+            System.out.println("");
+        } catch(InterruptedException ie){ }
+        finally{
+            semaphore.release();
+        }
+    }
+
+    public void AirplaneHold(ArrayList<Suitcase> hold){
+        System.out.print("El AVIÓN tiene: ");
+        for (Suitcase suitcases : hold){
+            System.out.print(suitcases.getSuitcase() + " // ");
+        }
+        System.out.println("");
+        System.out.println("");
+    }
 }

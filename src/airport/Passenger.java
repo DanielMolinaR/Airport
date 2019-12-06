@@ -17,7 +17,7 @@ public class Passenger extends Thread{
     private Conveyor conveyor; 
     private Suitcase suitcase_A; 
     private Suitcase suitcase_B; 
-    private Logger logger;
+    //private Logger logger;
 
     public Passenger(String id_passenger, Suitcase suitcase_A, Suitcase suitcase_B, Conveyor conveyor) { 
         this.id_passenger = id_passenger; 

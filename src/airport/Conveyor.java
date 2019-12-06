@@ -57,7 +57,7 @@ public class Conveyor {
     
     public Suitcase TakeSuitcase() {
 
-        /*Suitcase suitcase;
+        /*
         locket_conveyor.lock();
 
         while(this.isConveyorEmpty()){
@@ -69,6 +69,7 @@ public class Conveyor {
         suitcase = conveyor.remove(0);
         PrintConveyor();
         return suitcase;*/
+        Suitcase suitcase;
 
         try{
             locket_conveyor.lock();
@@ -76,7 +77,8 @@ public class Conveyor {
                 if (this.isConveyorEmpty())
                     empty.await();
             } catch(InterruptedException ie){ }
-            return conveyor.remove(0);
+            suitcase = conveyor.remove(0);
+            return suitcase;
         }
         finally{
             full.signal();

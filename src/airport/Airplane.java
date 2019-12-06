@@ -15,25 +15,21 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Airplane {
     
     private ArrayList<Suitcase> hold = new ArrayList<>();
-    private Lock locket_airplane = new ReentrantLock();        
-
+    private Lock locket_airplane = new ReentrantLock();  
+    private Logger logger;
+    
+    public Airplane() {
+        this.logger = new Logger();
+    }
     public void LeaveSuitcaseAirplane(Suitcase suitcase){
         try {
             locket_airplane.lock();
             this.hold.add(suitcase);
-            PrintHold();
+            this.logger.AirplaneHold(hold);
         }
         finally{
             locket_airplane.unlock();
         }
     }
     
-    public void PrintHold(){
-        System.out.print("El AVIÓN tiene: ");
-        for (Suitcase suitcases : hold){
-            System.out.print(suitcases.getSuitcase() + " // ");
-        }
-        System.out.println("");
-        System.out.println("");
-    }
 }
