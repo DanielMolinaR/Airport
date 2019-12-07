@@ -7,11 +7,8 @@ package airport;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
-import java.awt.Desktop;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+
 
 //import java.util.ArrayList;
 
@@ -19,14 +16,18 @@ import java.io.IOException;
  *
  * @author Daniel
  */
-public class Logger{
+public class Datafile{
 
     private Semaphore semaphore;
-    String text; 
+    private String text; 
+    private Controller controller;
 
-    public Logger() {
+    
+
+    public Datafile() {
         semaphore = new Semaphore(1);
         text = new String();
+        controller = new Controller();
     }
 
     public void Conveyor(ArrayList<Suitcase> conveyor){
@@ -59,13 +60,14 @@ public class Logger{
     }
     
     public void PassengerLaunched(Passenger passenger) throws IOException{
+
         try {
 
             semaphore.acquire();
-
+            
             System.out.println("Se ha lanzado el " + passenger.getId_passenger());
             text = "Se ha lanzado el " + passenger.getId_passenger();
-            WriteFile(this.text);
+            controller.doLogging(this.text);
         } catch(InterruptedException ie){ }
         finally{
             semaphore.release();
@@ -131,15 +133,4 @@ public class Logger{
         System.out.println("");
     }
 
-    public void WriteFile (String text) throws IOException{
-        BufferedWriter out = new BufferedWriter(new FileWriter("Airport.txt"));
-        out.write(text);
-        out.flush();
-        out.close();
-
-        File airport = new File("Airport.txt");
-
-        Desktop desktop = Desktop.getDesktop();
-        desktop.print(airport);
-    }
 }

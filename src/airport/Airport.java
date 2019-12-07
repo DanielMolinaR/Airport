@@ -5,6 +5,7 @@
  */
 package airport;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -15,39 +16,39 @@ public class Airport {
 
     private final Conveyor conveyor ;
     private Airplane airplane;
+    private Datafile datafile;
 
     public Airport(){
         this.conveyor = new Conveyor();
         this.airplane = new Airplane();
+        this.datafile = new Datafile();
     }
 
     public ArrayList<Passenger> CreatePassenger(ArrayList<Passenger> passenger_queu) {
 
         for (int i = 0; i < 40; i++) {
-            Passenger passenger = new Passenger("Pasajero_" + (i + 1), new Suitcase("Pasajero_" + String.valueOf(i + 1) + "-Maleta_1"), 
+            Passenger passenger = new Passenger("Pasajero_" + String.valueOf(i + 1), new Suitcase("Pasajero_" + String.valueOf(i + 1) + "-Maleta_1"), 
                                                 new Suitcase("Pasajero_" + String.valueOf(i + 1) + "-Maleta_2"), this.conveyor);
             passenger_queu.add(passenger);
-            System.out.println("Se ha creado el " + passenger.getId_passenger());
+            datafile.PassengerCreated(passenger);
         }
-        //PrintQueu(passenger_queu);
         return passenger_queu;
     }
 
-    public void StartPassenger(ArrayList<Passenger> passenger_queu) {
+    public void StartPassenger(ArrayList<Passenger> passenger_queu) throws IOException {
 
         for (Passenger passenger : passenger_queu) {
             passenger.start();
-            System.out.println("Se ha lanzado el " + passenger.getId_passenger());
+            datafile.PassengerLaunched(passenger);
         }
     }
 
     public ArrayList<Employee> CreateEmployee(ArrayList<Employee> employee_queu) {
 
         for (int i = 0; i < 2; i++) {
-            Employee employee = new Employee("Empleado_", conveyor, this.airplane);
-            employee.setId_employee("Empleado_" + String.valueOf(i + 1));
+            Employee employee = new Employee("Empleado_" + String.valueOf(i + 1), conveyor, this.airplane);
             employee_queu.add(employee);
-            System.out.println("Se ha creado el " + employee.getId_employee());
+            datafile.EmployeeCreated(employee);
         }
         return employee_queu;
     }
@@ -56,7 +57,7 @@ public class Airport {
 
         for (Employee employee : employee_queu) {
             employee.start();
-            System.out.println("Se ha lanzado el " + employee.getId_employee());
+            datafile.EmployeeLaunched(employee);
         }
     }
 
@@ -83,7 +84,7 @@ public class Airport {
             i++;
         }
 
-        employee_queu.get(i).notify(); // esta mal tiene que ser signal implementar monitores
+        employee_queu.get(i).notify(); 
 
     }
 
@@ -100,7 +101,7 @@ public class Airport {
     public void LaunchAllEmployees(ArrayList <Employee> employee_queu){
 
         for (int i = 0; i<employee_queu.size(); i++){
-            employee_queu.get(i).notify(); // esta mal tiene que ser signal implementar monitores
+            employee_queu.get(i).notify(); 
         }
     }
 
@@ -125,11 +126,5 @@ public class Airport {
             passenger_queu.get(i).notify();
         }*/
     }
-
-    /*public static void PrintQueu(ArrayList<Passenger> passenger_queu) {
-        for (Passenger passenger : passenger_queu){
-            System.out.println(passenger.getId_passenger());
-        }
-    }*/
 
 }

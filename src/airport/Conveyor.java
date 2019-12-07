@@ -20,11 +20,11 @@ public class Conveyor {
     private Lock locket_conveyor = new ReentrantLock();        
     private Condition full = locket_conveyor.newCondition(); 
     private Condition empty = locket_conveyor.newCondition();  
-    private Logger logger;
+    private Datafile datafile;
 
     public Conveyor() {
         this.conveyor = new ArrayList<>();
-        this.logger = new Logger();
+        this.datafile = new Datafile();
     }
     
    public void LeaveSuitcaseConveyor(Suitcase suitcase){
@@ -36,7 +36,7 @@ public class Conveyor {
                     full.await();
             } catch(InterruptedException ie){ }
             conveyor.add(suitcase);
-            this.logger.Conveyor(this.conveyor);
+            this.datafile.Conveyor(this.conveyor);
             empty.signal();
         }
         finally{

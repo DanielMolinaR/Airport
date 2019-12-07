@@ -12,14 +12,14 @@ public class Employee extends Thread{
      private String id_employee; 
      private ArrayList<Suitcase> suitcases;
      private Airplane airplane;
-     private Logger logger;
+     private Datafile datafile;
 
      public Employee(String id_employee, Conveyor conveyor, Airplane airplane) { 
           this.id_employee = id_employee;
           this.suitcases = new ArrayList<>();
           this.conveyor = conveyor;
           this.airplane = airplane;
-          this.logger = new Logger();
+          this.datafile = new Datafile();
       }
 
      public String getId_employee() {
@@ -34,12 +34,12 @@ public class Employee extends Thread{
      public synchronized void run(){  
           while (true){ 
                this.suitcases.add(conveyor.TakeSuitcase());
-               this.logger.EmployeeCarrySuitcase(this, this.suitcases.get(0));
+               this.datafile.EmployeeCarrySuitcase(this, this.suitcases.get(0));
                try{
                     sleep(400 + (int)(700*Math.random()));  //wait between 0.4 y 0.7 sec
                 } catch (InterruptedException e){}
                this.airplane.LeaveSuitcaseAirplane(this.suitcases.remove(0));
-               this.logger.EmployeeGettingBack(this);
+               this.datafile.EmployeeGettingBack(this);
                try{
                     sleep(400 + (int)(700*Math.random()));  //wait between 0.4 y 0.7 sec
                 } catch (InterruptedException e){} 

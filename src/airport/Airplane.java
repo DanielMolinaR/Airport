@@ -16,16 +16,16 @@ public class Airplane {
     
     private ArrayList<Suitcase> hold = new ArrayList<>();
     private Lock locket_airplane = new ReentrantLock();  
-    private Logger logger;
+    private Datafile datafile;
     
     public Airplane() {
-        this.logger = new Logger();
+        this.datafile = new Datafile();
     }
     public void LeaveSuitcaseAirplane(Suitcase suitcase){
         try {
             locket_airplane.lock();
             this.hold.add(suitcase);
-            this.logger.AirplaneHold(hold);
+            this.datafile.AirplaneHold(hold);
         }
         finally{
             locket_airplane.unlock();
