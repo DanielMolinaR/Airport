@@ -28,17 +28,6 @@ public class Conveyor {
     }
     
    public void LeaveSuitcaseConveyor(Suitcase suitcase){
-        
-    /*locket_conveyor.lock();
-
-    while(this.isConveyorFull()){
-        try{
-            wait(); 
-            empty.signal();
-        } catch(InterruptedException e){}
-    }
-    conveyor.add(suitcase);
-    PrintConveyor();*/
 
     try {
             locket_conveyor.lock();
@@ -57,18 +46,6 @@ public class Conveyor {
     
     public Suitcase TakeSuitcase() {
 
-        /*
-        locket_conveyor.lock();
-
-        while(this.isConveyorEmpty()){
-            try{
-                wait(); 
-                full.signal();
-            } catch(InterruptedException e){}
-        }
-        suitcase = conveyor.remove(0);
-        PrintConveyor();
-        return suitcase;*/
         Suitcase suitcase;
 
         try{
@@ -94,12 +71,4 @@ public class Conveyor {
         return this.conveyor.isEmpty();
     }
 
-    /*public void PrintConveyor(){
-        System.out.print("La CINTA tiene: ");
-        for (Suitcase suitcases : conveyor){
-            System.out.print(suitcases.getSuitcase() + " // ");
-        }
-        System.out.println("");
-        System.out.println("");
-    }*/
 }

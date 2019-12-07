@@ -7,6 +7,11 @@ package airport;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
+import java.awt.Desktop;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 //import java.util.ArrayList;
 
@@ -16,10 +21,12 @@ import java.util.concurrent.Semaphore;
  */
 public class Logger{
 
-    private final Semaphore semaphore;
+    private Semaphore semaphore;
+    String text; 
 
     public Logger() {
         semaphore = new Semaphore(1);
+        text = new String();
     }
 
     public void Conveyor(ArrayList<Suitcase> conveyor){
@@ -27,12 +34,12 @@ public class Logger{
 
             semaphore.acquire();
 
-            System.out.print("La CINTA tiene: ");
+            System.out.println("La CINTA tiene: ");
             for (Suitcase suitcases : conveyor){
                 System.out.print(suitcases.getSuitcase() + " // ");
             }
-            System.out.println("");
-            System.out.println("");
+            System.out.println(" ");
+            System.out.println(" ");
         } catch(InterruptedException ie){ }
         finally{
             semaphore.release();
@@ -51,12 +58,14 @@ public class Logger{
         }
     }
     
-    public void PassengerLaunched(Passenger passenger){
+    public void PassengerLaunched(Passenger passenger) throws IOException{
         try {
 
             semaphore.acquire();
 
             System.out.println("Se ha lanzado el " + passenger.getId_passenger());
+            text = "Se ha lanzado el " + passenger.getId_passenger();
+            WriteFile(this.text);
         } catch(InterruptedException ie){ }
         finally{
             semaphore.release();
@@ -114,11 +123,23 @@ public class Logger{
     }
 
     public void AirplaneHold(ArrayList<Suitcase> hold){
-        System.out.print("El AVIÓN tiene: ");
+        System.out.println("El AVIÓN tiene: ");
         for (Suitcase suitcases : hold){
             System.out.print(suitcases.getSuitcase() + " // ");
         }
         System.out.println("");
         System.out.println("");
+    }
+
+    public void WriteFile (String text) throws IOException{
+        BufferedWriter out = new BufferedWriter(new FileWriter("Airport.txt"));
+        out.write(text);
+        out.flush();
+        out.close();
+
+        File airport = new File("Airport.txt");
+
+        Desktop desktop = Desktop.getDesktop();
+        desktop.print(airport);
     }
 }
