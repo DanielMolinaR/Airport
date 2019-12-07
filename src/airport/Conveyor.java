@@ -5,6 +5,7 @@
  */
 package airport;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -15,19 +16,19 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Daniel
  */
 public class Conveyor {
-    
+
     private ArrayList<Suitcase> conveyor;
-    private Lock locket_conveyor = new ReentrantLock();        
-    private Condition full = locket_conveyor.newCondition(); 
-    private Condition empty = locket_conveyor.newCondition();  
+    private Lock locket_conveyor = new ReentrantLock();
+    private Condition full = locket_conveyor.newCondition();
+    private Condition empty = locket_conveyor.newCondition();
     private Datafile datafile;
 
     public Conveyor() {
         this.conveyor = new ArrayList<>();
         this.datafile = new Datafile();
     }
-    
-   public void LeaveSuitcaseConveyor(Suitcase suitcase){
+
+    public void LeaveSuitcaseConveyor(Suitcase suitcase) {
 
     try {
             locket_conveyor.lock();

@@ -29,7 +29,7 @@ public class Controller {
 
     public void doLogging(String text) throws IOException {
         logger.info(text);
-        //logger.setUseParentHandlers(false);
+        logger.setUseParentHandlers(false);
     }
 }   
 

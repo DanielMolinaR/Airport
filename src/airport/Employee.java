@@ -1,5 +1,6 @@
 package airport;
 
+
 import java.util.ArrayList;
 
 /**
@@ -31,7 +32,7 @@ public class Employee extends Thread{
      }
      
 
-     public synchronized void run(){  
+     public synchronized void run() {
           while (true){ 
                this.suitcases.add(conveyor.TakeSuitcase());
                this.datafile.EmployeeCarrySuitcase(this, this.suitcases.get(0));

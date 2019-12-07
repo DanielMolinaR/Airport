@@ -24,7 +24,7 @@ public class Airport {
         this.datafile = new Datafile();
     }
 
-    public ArrayList<Passenger> CreatePassenger(ArrayList<Passenger> passenger_queu) {
+    public ArrayList<Passenger> CreatePassenger(ArrayList<Passenger> passenger_queu) throws IOException {
 
         for (int i = 0; i < 40; i++) {
             Passenger passenger = new Passenger("Pasajero_" + String.valueOf(i + 1), new Suitcase("Pasajero_" + String.valueOf(i + 1) + "-Maleta_1"), 
@@ -43,7 +43,7 @@ public class Airport {
         }
     }
 
-    public ArrayList<Employee> CreateEmployee(ArrayList<Employee> employee_queu) {
+    public ArrayList<Employee> CreateEmployee(ArrayList<Employee> employee_queu) throws IOException {
 
         for (int i = 0; i < 2; i++) {
             Employee employee = new Employee("Empleado_" + String.valueOf(i + 1), conveyor, this.airplane);
@@ -53,7 +53,7 @@ public class Airport {
         return employee_queu;
     }
 
-    public  void StartEmployee(ArrayList<Employee> employee_queu) {
+    public  void StartEmployee(ArrayList<Employee> employee_queu) throws IOException {
 
         for (Employee employee : employee_queu) {
             employee.start();
