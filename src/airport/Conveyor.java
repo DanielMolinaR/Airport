@@ -5,7 +5,7 @@
  */
 package airport;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -21,14 +21,16 @@ public class Conveyor {
     private Lock locket_conveyor = new ReentrantLock();
     private Condition full = locket_conveyor.newCondition();
     private Condition empty = locket_conveyor.newCondition();
-    private Datafile datafile;
+    private WriteFile writefile;
+    String text;
 
     public Conveyor() {
         this.conveyor = new ArrayList<>();
-        this.datafile = new Datafile();
+        this.writefile = new WriteFile();
+        this.text = new String();
     }
 
-    public void LeaveSuitcaseConveyor(Suitcase suitcase) {
+    public void LeaveSuitcaseConveyor(Suitcase suitcase) throws FileNotFoundException {
 
     try {
             locket_conveyor.lock();
@@ -37,10 +39,23 @@ public class Conveyor {
                     full.await();
             } catch(InterruptedException ie){ }
             conveyor.add(suitcase);
-            this.datafile.Conveyor(this.conveyor);
+
+            int i = 1;
+
+            System.out.println("La CINTA tiene: ");
+            text = "La CINTA tiene: ";
+            for (Suitcase suitcases : conveyor){
+                System.out.print(i + (".-") + suitcases.getSuitcase() + " // ");
+                text += i + (".-") + suitcases.getSuitcase() + " // ";
+                i++;
+            }
+            System.out.println(" ");
+            System.out.println(" ");
+
             empty.signal();
         }
         finally{
+            writefile.Writer(text);
             locket_conveyor.unlock();
         }
     } 

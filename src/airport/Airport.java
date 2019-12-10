@@ -16,12 +16,13 @@ public class Airport {
 
     private final Conveyor conveyor ;
     private Airplane airplane;
-    private Datafile datafile;
+    private WriteFile writefile;
+    private String text;
 
     public Airport(){
         this.conveyor = new Conveyor();
         this.airplane = new Airplane();
-        this.datafile = new Datafile();
+        this.writefile = new WriteFile();
     }
 
     public ArrayList<Passenger> CreatePassenger(ArrayList<Passenger> passenger_queu) throws IOException {
@@ -30,7 +31,11 @@ public class Airport {
             Passenger passenger = new Passenger("Pasajero_" + String.valueOf(i + 1), new Suitcase("Pasajero_" + String.valueOf(i + 1) + "-Maleta_1"), 
                                                 new Suitcase("Pasajero_" + String.valueOf(i + 1) + "-Maleta_2"), this.conveyor);
             passenger_queu.add(passenger);
-            datafile.PassengerCreated(passenger);
+
+            System.out.println("Se ha creado el " + passenger.getId_passenger());
+            text = "Se ha creado el " + passenger.getId_passenger();
+
+            writefile.Writer(text);
         }
         return passenger_queu;
     }
@@ -39,7 +44,11 @@ public class Airport {
 
         for (Passenger passenger : passenger_queu) {
             passenger.start();
-            datafile.PassengerLaunched(passenger);
+
+            System.out.println("Se ha lanzado el " + passenger.getId_passenger());
+            text = "Se ha lanzado el " + passenger.getId_passenger();
+
+            writefile.Writer(text);
         }
     }
 
@@ -48,7 +57,11 @@ public class Airport {
         for (int i = 0; i < 2; i++) {
             Employee employee = new Employee("Empleado_" + String.valueOf(i + 1), conveyor, this.airplane);
             employee_queu.add(employee);
-            datafile.EmployeeCreated(employee);
+
+            System.out.println("Se ha creado el " + employee.getId_employee());
+            text = "Se ha creado el " + employee.getId_employee();
+
+            writefile.Writer(text);
         }
         return employee_queu;
     }
@@ -57,7 +70,11 @@ public class Airport {
 
         for (Employee employee : employee_queu) {
             employee.start();
-            datafile.EmployeeLaunched(employee);
+
+            System.out.println("Se ha lanzado el " + employee.getId_employee());
+            text = "Se ha lanzado el " + employee.getId_employee();
+
+            writefile.Writer(text);
         }
     }
 

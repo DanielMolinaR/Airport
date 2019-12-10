@@ -5,27 +5,45 @@
  */
 package airport;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
 /**
  *
  * @author Daniel
  */
 public class Airplane {
-    
+
     private ArrayList<Suitcase> hold = new ArrayList<>();
-    private Lock locket_airplane = new ReentrantLock();  
-    private Datafile datafile;
-    
+    private Lock locket_airplane = new ReentrantLock();
+    private WriteFile writefile;
+    private String text;
+
     public Airplane() {
-        this.datafile = new Datafile();
+        this.writefile = new WriteFile();
     }
-    public void LeaveSuitcaseAirplane(Suitcase suitcase){
+
+    public void LeaveSuitcaseAirplane(Suitcase suitcase) throws FileNotFoundException {
         try {
             locket_airplane.lock();
             this.hold.add(suitcase);
-            this.datafile.AirplaneHold(hold);
+
+            int i = 1;
+
+            System.out.println("El AVIÓN tiene: ");
+            text = "El AVIÓN tiene: ";
+            for (Suitcase suitcases : hold){
+                System.out.print(i + (".-") + suitcases.getSuitcase() + " // ");
+                text += i + (".-") + suitcases.getSuitcase() + " // ";
+                i++;
+            }
+            System.out.println(" ");
+            System.out.println(" ");
+
+            this.writefile.Writer(text);
+
         }
         finally{
             locket_airplane.unlock();

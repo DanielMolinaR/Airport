@@ -5,31 +5,31 @@
  */
 package airport;
 
+import java.io.FileNotFoundException;
+
 //import java.util.ArrayList;
 
 /**
  *
  * @author Daniel
  */
-public class Passenger extends Thread{
-    
-    private final String id_passenger; 
-    private Conveyor conveyor; 
-    private Suitcase suitcase_A; 
-    private Suitcase suitcase_B; 
-    //private Logger logger;
+public class Passenger extends Thread {
 
-    public Passenger(String id_passenger, Suitcase suitcase_A, Suitcase suitcase_B, Conveyor conveyor) { 
-        this.id_passenger = id_passenger; 
-        this.suitcase_A = suitcase_A; 
-        this.suitcase_B = suitcase_B; 
+    private final String id_passenger;
+    private Conveyor conveyor;
+    private Suitcase suitcase_A;
+    private Suitcase suitcase_B;
+
+    public Passenger(String id_passenger, Suitcase suitcase_A, Suitcase suitcase_B, Conveyor conveyor) {
+        this.id_passenger = id_passenger;
+        this.suitcase_A = suitcase_A;
+        this.suitcase_B = suitcase_B;
         this.conveyor = conveyor;
     }
 
     public String getId_passenger() {
         return id_passenger;
     }
-
 
     public Conveyor getConveyor() {
         return conveyor;
@@ -43,17 +43,26 @@ public class Passenger extends Thread{
         return suitcase_B;
     }
 
+    public void run() {
+        try {
+            sleep(500 + (int) (1000 * Math.random())); // wait between 0.5 y 1 sec
+        } catch (InterruptedException e) {
+        }
+        try {
+            this.conveyor.LeaveSuitcaseConveyor(suitcase_A);
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
 
-
-    public synchronized void run(){
         try{
             sleep(500 + (int)(1000*Math.random()));  //wait between 0.5 y 1 sec
         } catch (InterruptedException e){}
-        this.conveyor.LeaveSuitcaseConveyor(suitcase_A);
-        try{
-            sleep(500 + (int)(1000*Math.random()));  //wait between 0.5 y 1 sec
-        } catch (InterruptedException e){}
-        this.conveyor.LeaveSuitcaseConveyor(suitcase_B);
+
+        try {
+            this.conveyor.LeaveSuitcaseConveyor(suitcase_B);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     
 }

@@ -5,8 +5,11 @@
  */
 package airport;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.tools.FileObject;
 
 /**
  *
@@ -20,7 +23,9 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        
+        WriteFile writefile = new WriteFile();
+        writefile.DeleteFile();
+
         Airport airport = new Airport();
         ArrayList<Passenger> passenger_queu = new ArrayList<>();
         passenger_queu = airport.CreatePassenger(passenger_queu);
