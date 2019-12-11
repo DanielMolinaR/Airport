@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rmi;
+package RMI
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -14,7 +14,6 @@ import java.rmi.RemoteException;
 public interface CommonInterface extends Remote{
     
     string ShowConveyor() throws RemoteException;
-    string ShowPassenger() throws RemoteException;
-    string ShowEmployee() throws RemoteException;
-    
+    string ShowAirplane() throws RemoteException;
+   
 }
