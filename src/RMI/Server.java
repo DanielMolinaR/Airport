@@ -12,6 +12,7 @@ import java.rmi.*;
  * @author Antonio
  */
 public class Server {
+    
     public static void main(String[] args) throws RemoteException {
         try {
         InterfaceImplement RemoteObject =  new InterfaceImplement();

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rmi;
+package RMI;
 import java.rmi.*;
 import java.io.*;
 import static java.lang.Thread.sleep;
-import java.rmi.server.RemoteObject;
+
 
 /**
  *
@@ -16,28 +16,32 @@ import java.rmi.server.RemoteObject;
 public class Client {
     public static void main(String args[])
     {
+        
+        
+
+
         String respuesta = "";
         try
         {
             BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("¿Que quiere consultar? C = cinta, P= pasajero , E = empleado:");
+            System.out.println("¿Que quiere consultar? C = cinta, A = avion : ");
             String consulta = entrada.readLine();
-            RemoteObject = (CommonInterface) Naming.lookup("//127.0.0.1/Airport"); //Localiza el objeto distribuido
-            if (consulta =="c" ){
-                WantConveyor = RemoteObject.ShowConveyor();
+            CommonInterface RemoteObject  = (CommonInterface) Naming.lookup("//127.0.0.1/Airport"); //Localiza el objeto distribuido
+
+
+            if (consulta == "c" ){
+                RemoteObject.ShowConveyor();
             }
-            else if (consulta == "p"){
-                WantPassenger = RemoteObject.ShowPassenger();
-            }
-            else if (consulta == "e"){
-                 WantEmployee  = RemoteObject.ShowEmployee();
-                
+            else if (consulta == "a"){
+                RemoteObject.ShowAirplane();
             }
             
             
-            System.out.println(respuesta);
-            sleep(1000); //Para que dé tiempo a leer la respuesta antes de que se cierre la ventana
-        }
+            
+            System.out.println("Se ha mostrado el array pedido. ");
+            sleep(1000);
+         } //Para que dé tiempo a leer la respuesta antes de que se cierre la ventana
+        
         catch (Exception e)
         {
             System.out.println("Excepción : " + e.getMessage());
