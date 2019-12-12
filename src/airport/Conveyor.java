@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import javax.swing.JTextField;
 
 /**
  *
@@ -22,12 +23,28 @@ public class Conveyor {
     private Condition full = locket_conveyor.newCondition();
     private Condition empty = locket_conveyor.newCondition();
     private WriteFile writefile;
+    private JTextField leave_suitcase; 
     String text;
 
     public Conveyor() {
         this.conveyor = new ArrayList<>();
         this.writefile = new WriteFile();
         this.text = new String();
+        
+    }
+
+    public void showConveyor(){
+        int i=1;
+        
+        System.out.println("La CINTA tiene: ");
+            text = "La CINTA tiene: ";
+            for (Suitcase suitcases : conveyor){
+                System.out.print(i + (".-") + suitcases.getSuitcase() + " // ");
+                text += i + (".-") + suitcases.getSuitcase() + " // ";
+                i++;
+            }
+            System.out.println(" ");
+            System.out.println(" ");
     }
 
     public void LeaveSuitcaseConveyor(Suitcase suitcase) throws FileNotFoundException {
@@ -51,7 +68,7 @@ public class Conveyor {
             }
             System.out.println(" ");
             System.out.println(" ");
-
+            
             empty.signal();
         }
         finally{

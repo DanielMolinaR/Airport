@@ -7,13 +7,15 @@ package RMI;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import airport.Airport;
+
 /**
  *
  * @author Antonio
  */
 public interface CommonInterface extends Remote{
     
-    void ShowConveyor() throws RemoteException;
-    void ShowAirplane() throws RemoteException;
+    void ShowConveyor(Airport ae) throws RemoteException;
+    void ShowAirplane(Airport ae) throws RemoteException;
    
 }

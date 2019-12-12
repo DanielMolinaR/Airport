@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,9 +21,28 @@ public class Airplane {
     private Lock locket_airplane = new ReentrantLock();
     private WriteFile writefile;
     private String text;
+    private JTextField airplane_text;
 
     public Airplane() {
         this.writefile = new WriteFile();
+        this.airplane_text = airplane_text;
+    }
+
+    public void ShowAirplane(){
+        int i = 1;
+
+            System.out.println("El AVIÓN tiene: ");
+            text = "El AVIÓN tiene: ";
+            for (Suitcase suitcases : hold){
+                System.out.print(i + (".-") + suitcases.getSuitcase() + " // ");
+                text += i + (".-") + suitcases.getSuitcase() + " // ";
+                i++;
+            }
+            
+            System.out.println(" ");
+            System.out.println(" ");
+            
+
     }
 
     public void LeaveSuitcaseAirplane(Suitcase suitcase) throws FileNotFoundException {
@@ -39,8 +59,10 @@ public class Airplane {
                 text += i + (".-") + suitcases.getSuitcase() + " // ";
                 i++;
             }
+            
             System.out.println(" ");
             System.out.println(" ");
+            
 
             this.writefile.Writer(text);
 

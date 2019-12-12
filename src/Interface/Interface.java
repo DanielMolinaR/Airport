@@ -5,6 +5,14 @@
  */
 package Interface;
 
+import airport.Airplane;
+import airport.Airport;
+import airport.Conveyor;
+import airport.Employee;
+import airport.Passenger;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  *
  * @author Daniel
@@ -14,8 +22,19 @@ public class Interface extends javax.swing.JPanel {
     /**
      * Creates new form Interface
      */
-    public Interface() {
+    public Interface() throws IOException {
         initComponents();
+        
+        Airport airport = new Airport();
+        ArrayList<Passenger> passenger_queu = new ArrayList<>();
+        passenger_queu = airport.CreatePassenger(passenger_queu);
+        airport.StartPassenger(passenger_queu);
+        ArrayList<Employee> employee_queu = new ArrayList<>();
+        employee_queu = airport.CreateEmployee(employee_queu);
+        airport.StartEmployee(employee_queu);
+        //Airplane airplane = new Airplane();
+        //Conveyor conveyor = new Conveyor();
+        
     }
 
     /**
@@ -124,9 +143,9 @@ public class Interface extends javax.swing.JPanel {
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)

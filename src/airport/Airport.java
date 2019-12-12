@@ -25,6 +25,15 @@ public class Airport {
         this.writefile = new WriteFile();
     }
 
+    public Conveyor getConveyor(){
+        return this.conveyor;
+    }
+
+    public Airplane getAirplane(){
+        return this.airplane;
+    }
+    
+
     public ArrayList<Passenger> CreatePassenger(ArrayList<Passenger> passenger_queu) throws IOException {
 
         for (int i = 0; i < 40; i++) {

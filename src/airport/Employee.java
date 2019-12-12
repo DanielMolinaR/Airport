@@ -3,6 +3,7 @@ package airport;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import javax.swing.JTextField;
 
 /**
  *
@@ -16,6 +17,8 @@ public class Employee extends Thread {
      private Airplane airplane;
      private WriteFile writefile;
      private String text;
+     private JTextField employee_working;
+     private JTextField employee_coming;
 
      public Employee(String id_employee, Conveyor conveyor, Airplane airplane) {
           this.id_employee = id_employee;
@@ -23,6 +26,8 @@ public class Employee extends Thread {
           this.conveyor = conveyor;
           this.airplane = airplane;
           this.writefile = new WriteFile();
+          this.employee_working = employee_working ;
+          this.employee_coming = employee_coming;
      }
 
      public String getId_employee() {
@@ -40,7 +45,7 @@ public class Employee extends Thread {
                System.out.println("El " + this.getId_employee() + " lleva " + suitcases.get(0).getSuitcase());
                System.out.println("");
                text = "El " + this.getId_employee() + " lleva " + suitcases.get(0).getSuitcase();
-
+              
                try {
                     writefile.Writer(text);
                } catch (FileNotFoundException e1) {
@@ -60,7 +65,7 @@ public class Employee extends Thread {
                System.out.println("El "+ this.getId_employee() + " está volviendo");
                System.out.println("");
                text = "El "+ this.getId_employee() + " está volviendo";
-
+               
                try {
                     writefile.Writer(text);
                } catch (FileNotFoundException e1) {

@@ -5,6 +5,9 @@
  */
 package RMI;
 import java.rmi.*;
+
+import airport.Airport;
+
 import java.io.*;
 import static java.lang.Thread.sleep;
 
@@ -16,7 +19,7 @@ import static java.lang.Thread.sleep;
 public class Client {
     public static void main(String args[])
     {
-        
+        Airport rmi_airport = new Airport();
         
 
 
@@ -30,10 +33,10 @@ public class Client {
 
 
             if (consulta == "c" ){
-                RemoteObject.ShowConveyor();
+                RemoteObject.ShowConveyor(rmi_airport);
             }
             else if (consulta == "a"){
-                RemoteObject.ShowAirplane();
+                RemoteObject.ShowAirplane(rmi_airport);
             }
             
             
