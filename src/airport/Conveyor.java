@@ -122,8 +122,6 @@ public class Conveyor {
 
     public String Print(){
         
-        String text;
-        
         int i = 1;
                 
         System.out.println("La CINTA tiene: ");

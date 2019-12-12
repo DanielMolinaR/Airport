@@ -35,6 +35,15 @@ public class Airport {
         this.button = button;
     }
 
+    public Airport() {
+        this.conveyor = new Conveyor();
+        this.airplane = new Airplane();
+        this.writefile = new WriteFile();
+        this.passenger_queu = new ArrayList<>();
+        this.employee_queu = new ArrayList<>();
+
+    }
+
     public ArrayList<Passenger> CreatePassenger() throws IOException {
 
         for (int i = 0; i < 40; i++) {
@@ -87,71 +96,4 @@ public class Airport {
             writefile.Writer(text);
         } 
     }
-
-    /*
-    // Start and stop of threads
-    public void Pause1Employee(ArrayList <Employee> employee_queu, String employee_stopped) {
-
-        int i = 0;
-        while (!employee_stopped.equals(employee_queu.get(i).getId_employee())){
-            i++;
-        }
-
-        try {
-            employee_queu.get(i).wait(); 
-        }
-        catch (InterruptedException ie){}
-
-    }
-
-    public void Launch1Employee(ArrayList <Employee> employee_queu, String employee_stopped){
-
-        int i = 0;
-        while (!employee_stopped.equals(employee_queu.get(i).getId_employee())){
-            i++;
-        }
-
-        employee_queu.get(i).notify(); 
-
-    }
-
-    public void PauseAllEmployess(ArrayList <Employee> employee_queu){
-
-        for (int i = 0; i<employee_queu.size(); i++){
-            try {
-                employee_queu.get(i).wait(); 
-            }
-            catch (InterruptedException ie){}
-        }
-    }
-
-    public void LaunchAllEmployees(ArrayList <Employee> employee_queu){
-
-        for (int i = 0; i<employee_queu.size(); i++){
-            employee_queu.get(i).notify(); 
-        }
-    }
-
-    public void PauseAll(ArrayList <Employee> employee_queu, ArrayList <Passenger> passenger_queu){
-
-        PauseAllEmployess(employee_queu);
-
-        for (int i = 0; i<passenger_queu.size(); i++){
-            try {
-                passenger_queu.get(i).wait();
-            }
-            catch (InterruptedException ie){}
-        }
-    }
-
-    public void LaunchAll(ArrayList <Employee> employee_queu, ArrayList <Passenger> passenger_queu){
-
-        LaunchAllEmployees(employee_queu);
-
-        passenger_queu.notifyAll();
-        /*for (int i = 0; i<passenger_queu.size(); i++){
-            passenger_queu.get(i).notify();
-        }
-    }*/
-
 }

@@ -38,21 +38,7 @@ public class Airplane {
             locket_airplane.lock();
             this.hold.add(suitcase);
 
-            int i = 1;
-
-            System.out.println("El AVIÓN tiene: ");
-            text = "El AVIÓN tiene: ";
-            for (Suitcase suitcases : hold){
-                if (i%4==0){
-                    text += "\n";
-                }
-                System.out.print(i + (".-") + suitcases.getSuitcase() + " // ");
-                text += i + (".-") + suitcases.getSuitcase() + " // ";
-                i++;
-            }
-            
-            System.out.println(" ");
-            System.out.println(" ");
+            text = PrintA();
             
             textE = "El "+ id + " está volviendo";
 
@@ -61,11 +47,32 @@ public class Airplane {
             if (id.equalsIgnoreCase("Empleado_1")){
             airplane_interface.ShowGettingbackE1(this.textE);
             }else airplane_interface.ShowGettingbackE2(this.textE);
+            
+            text = PrintA();
+            
             airplane_interface.ShowAirplane(text);
+            
             this.writefile.Writer(text);
             this.writefile.Writer(textE);
             locket_airplane.unlock();
         }
+    }
+    
+    public String PrintA(){
+        int i = 1;
+
+        text = "El AVIÓN tiene: ";
+        for (Suitcase suitcases : hold){
+            if (i%4==0){
+                text += "\n";
+            }
+            System.out.print(i + (".-") + suitcases.getSuitcase() + " // ");
+            text += i + (".-") + suitcases.getSuitcase() + " // ";
+            i++;
+        }
+        
+        return text;
+
     }
     
 }

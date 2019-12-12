@@ -5,11 +5,10 @@
  */
 package RMI;
 import java.rmi.*;
-
-import airport.Airport;
-
 import java.io.*;
 import static java.lang.Thread.sleep;
+import java.net.MalformedURLException;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -17,32 +16,37 @@ import static java.lang.Thread.sleep;
  * @author Antonio
  */
 public class Client {
-    public static void main(String args[])
-    {
-        Airport rmi_airport = new Airport();
-        
-
+    
+    private static CommonInterface look_up;
+    private static boolean condicion = true;
+    
+    public static void main(String args[]) throws MalformedURLException, RemoteException, NotBoundException{
 
         String respuesta = "";
         try
         {
-            BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("¿Que quiere consultar? C = cinta, A = avion : ");
-            String consulta = entrada.readLine();
-            CommonInterface RemoteObject  = (CommonInterface) Naming.lookup("//127.0.0.1/Airport"); //Localiza el objeto distribuido
+            while(true){
+                String consulta = JOptionPane.showInputDialog("¿Que quiere consultar? C = cinta, A = avion, B = cinta y avion :");
 
+                look_up = (CommonInterface) Naming.lookup("//127.0.0.1/Airport");
+                
+                if (consulta.equalsIgnoreCase("c") ){
+                    String text = look_up.Print();
 
-            if (consulta == "c" ){
-                RemoteObject.ShowConveyor(rmi_airport);
+                    JOptionPane.showMessageDialog(null, text);
+                }
+                else if (consulta.equalsIgnoreCase("a")){
+                    String text_a = look_up.Print();
+
+                    JOptionPane.showMessageDialog(null, text_a);
+                } else if (consulta.equalsIgnoreCase("t")){
+                    String text = look_up.Print() + "\n" + look_up.PrintA();
+                    JOptionPane.showMessageDialog(null, text);
+                } else JOptionPane.showMessageDialog(null, "Has introducido un dato incorrecto", "", JOptionPane.ERROR_MESSAGE);
+
+                sleep(1);
+                
             }
-            else if (consulta == "a"){
-                RemoteObject.ShowAirplane(rmi_airport);
-            }
-            
-            
-            
-            System.out.println("Se ha mostrado el array pedido. ");
-            sleep(1000);
          } //Para que dé tiempo a leer la respuesta antes de que se cierre la ventana
         
         catch (Exception e)

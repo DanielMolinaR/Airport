@@ -5,12 +5,16 @@
  */
 package airport;
 
+import RMI.Interfaceimplementation;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPanel;
 
 /**
  *
@@ -248,8 +252,8 @@ public class Interface extends javax.swing.JFrame {
         jButton1.setEnabled(false);
         jButton3.setEnabled(false);
         jButton6.setEnabled(true);
-        jButton2.setEnabled(true);
-        jButton4.setEnabled(true);
+        jButton2.setEnabled(false);
+        jButton4.setEnabled(false);
 
         button.SetPauseAll();
 
@@ -336,13 +340,20 @@ public class Interface extends javax.swing.JFrame {
         WriteFile writefile = new WriteFile();
         writefile.DeleteFile();
         
+        try {
+            Interfaceimplementation server = new Interfaceimplementation();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         java.awt.EventQueue.invokeLater(() -> {
             try {
                 new Interface().setVisible(true);
+                
             } catch (IOException ex) {
                 Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
+        }); 
         
         writefile.Close();
 

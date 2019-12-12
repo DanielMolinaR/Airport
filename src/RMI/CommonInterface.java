@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package RMI;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -15,7 +16,7 @@ import airport.Airport;
  */
 public interface CommonInterface extends Remote{
     
-    void ShowConveyor(Airport ae) throws RemoteException;
-    void ShowAirplane(Airport ae) throws RemoteException;
+    String Print() throws RemoteException;
+    String PrintA() throws RemoteException;
    
 }

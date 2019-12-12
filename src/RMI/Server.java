@@ -1,23 +1,29 @@
 
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RMI;
+/*package RMI;
 import airport.*;
-import java.rmi.*;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry; 
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  *
  * @author Antonio
  */
-public class Server {
+/*public class Server {
 
-    public static void main(String[] args) throws RemoteException {
+    public static void main(String[] args) {
         try {
-        Implement RemoteObject =  new Implement();
-        Naming.rebind("//127.0.0.1/Airport",RemoteObject);
+        Interfaceimplementation obj =  new Interfaceimplementation();
+        Registry registry = LocateRegistry.createRegistry(2118);
+        Naming.rebind("//localhost/Conveyor", obj);
         System.out.println("El objeto Saluda ha quedado registrado");
             }
         catch (Exception e)
@@ -29,4 +35,4 @@ public class Server {
     
     }
     
-}
+}*/
