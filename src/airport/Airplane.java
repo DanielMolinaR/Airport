@@ -31,7 +31,6 @@ public class Airplane {
     
     public Airplane() {
         this.writefile = new WriteFile();
-        this.airplane_text = airplane_text;
     }
 
     public void LeaveSuitcaseAirplane(Suitcase suitcase, String id) throws FileNotFoundException {

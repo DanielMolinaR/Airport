@@ -23,6 +23,7 @@ public class Airport {
     private ArrayList<Passenger> passenger_queu;
     private ArrayList<Employee> employee_queu;
     private Interface airport_interface;
+
     
     public Airport(Interface airport_interface) throws IOException{
         this.conveyor = new Conveyor(airport_interface);
@@ -41,7 +42,7 @@ public class Airport {
     }
     
 
-    public ArrayList<Passenger> CreatePassenger(ArrayList<Passenger> passenger_queu) throws IOException {
+    public ArrayList<Passenger> CreatePassenger() throws IOException {
 
         for (int i = 0; i < 40; i++) {
             Passenger passenger = new Passenger("Pasajero_" + String.valueOf(i + 1), new Suitcase("Pasajero_" + String.valueOf(i + 1) + "-Maleta_1"), 

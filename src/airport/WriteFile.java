@@ -25,9 +25,19 @@ import java.util.Date;
 public class WriteFile {
 
     private Lock locket = new ReentrantLock();
+    private boolean close = false;
 
+    public WriteFile(Boolean close) {
+        this.close = close;
+    }
 
-    public WriteFile() {}
+    public WriteFile() {
+    }
+
+    public void setClose(boolean close) {
+        this.close = close;
+    }    
+
     public void Writer(String text) throws FileNotFoundException {
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         try {
@@ -36,7 +46,11 @@ public class WriteFile {
             PrintStream writeToFile = new PrintStream(new FileOutputStream("AirportProgress.log", true)); 
             
             writeToFile.append(ts + " - " + text + "\n");
-
+            
+            if (close){
+                writeToFile.close();
+            }
+            
         }catch(Exception e){}
         finally{
             locket.unlock();
@@ -50,7 +64,10 @@ public class WriteFile {
         if(archivo.exists()){
             archivo.delete();
         }
-        
+    }
+    
+    public void Close(){
+        setClose(true);
     }
 
 }
