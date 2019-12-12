@@ -6,6 +6,8 @@
 package airport;
 
 import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //import java.util.ArrayList;
 
@@ -48,11 +50,13 @@ public class Passenger extends Thread {
             sleep(500 + (int) (1000 * Math.random())); // wait between 0.5 y 1 sec
         } catch (InterruptedException e) {
         }
+       
         try {
             this.conveyor.LeaveSuitcaseConveyor(suitcase_A);
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
         }
+
 
         try{
             sleep(500 + (int)(1000*Math.random()));  //wait between 0.5 y 1 sec

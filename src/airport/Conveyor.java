@@ -6,11 +6,14 @@
 package airport;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import javax.swing.JTextField;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
@@ -23,14 +26,22 @@ public class Conveyor {
     private Condition full = locket_conveyor.newCondition();
     private Condition empty = locket_conveyor.newCondition();
     private WriteFile writefile;
-    private JTextField leave_suitcase; 
-    String text;
+    private String text, textE;
+    private Interface airport_interface;
 
-    public Conveyor() {
+    public Conveyor(Interface airport_interface) throws IOException {
+        this.airport_interface = airport_interface;
         this.conveyor = new ArrayList<>();
         this.writefile = new WriteFile();
         this.text = new String();
-        
+        this.textE = new String();
+    }
+    
+     public Conveyor() {
+        this.conveyor = new ArrayList<>();
+        this.writefile = new WriteFile();
+        this.text = new String();
+        this.textE = new String();
     }
 
     public void showConveyor(){
@@ -57,27 +68,18 @@ public class Conveyor {
             } catch(InterruptedException ie){ }
             conveyor.add(suitcase);
 
-            int i = 1;
+            text = Print();
 
-            System.out.println("La CINTA tiene: ");
-            text = "La CINTA tiene: ";
-            for (Suitcase suitcases : conveyor){
-                System.out.print(i + (".-") + suitcases.getSuitcase() + " // ");
-                text += i + (".-") + suitcases.getSuitcase() + " // ";
-                i++;
-            }
-            System.out.println(" ");
-            System.out.println(" ");
-            
             empty.signal();
         }
         finally{
             writefile.Writer(text);
+            airport_interface.ShowConveyor(this.text);
             locket_conveyor.unlock();
         }
     } 
     
-    public Suitcase TakeSuitcase() {
+    public Suitcase TakeSuitcase(String id) {
 
         Suitcase suitcase;
 
@@ -88,14 +90,53 @@ public class Conveyor {
                     empty.await();
             } catch(InterruptedException ie){ }
             suitcase = conveyor.remove(0);
+            
+            textE = "El " + id + " lleva " + suitcase.getSuitcase();
+            
             return suitcase;
         }
         finally{
-            full.signal();
-            locket_conveyor.unlock();
+            try {
+                if (id.equalsIgnoreCase("Empleado_1")){
+                    airport_interface.ShowGoingE1(this.textE);
+                }else airport_interface.ShowGoingE2(this.textE);
+                try {
+                    this.writefile.Writer(text);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Conveyor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                text = Print();
+                
+                airport_interface.ShowConveyor(text);
+                
+                writefile.Writer(text);
+                
+                full.signal();
+                locket_conveyor.unlock();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Conveyor.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
+    public String Print(){
+        
+        String text;
+        
+        int i = 1;
+                
+        System.out.println("La CINTA tiene: ");
+        text = "La CINTA tiene: ";
+        for (Suitcase suitcases : conveyor){
+            System.out.print(i + (".-") + suitcases.getSuitcase() + " // ");
+            text += i + (".-") + suitcases.getSuitcase() + " // ";
+            i++;
+        }
+        
+        return text;
+    }
+        
     private boolean isConveyorFull(){
         return this.conveyor.size() == 8;
     }

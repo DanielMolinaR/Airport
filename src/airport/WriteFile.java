@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.sql.Timestamp;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.Lock;
 import java.sql.Timestamp;
@@ -28,16 +29,13 @@ public class WriteFile {
 
     public WriteFile() {}
     public void Writer(String text) throws FileNotFoundException {
-       
-        
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         try {
             locket.lock(); //Un segundo espera
 
             PrintStream writeToFile = new PrintStream(new FileOutputStream("AirportProgress.log", true)); 
             
-            writeToFile.println(ts + text + "\n");
-            //writeToFile.append(ts + " - " + axtext + "\n");
+            writeToFile.append(ts + " - " + text + "\n");
 
         }catch(Exception e){}
         finally{

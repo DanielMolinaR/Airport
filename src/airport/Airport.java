@@ -7,6 +7,8 @@ package airport;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,11 +20,16 @@ public class Airport {
     private Airplane airplane;
     private WriteFile writefile;
     private String text;
-
-    public Airport(){
-        this.conveyor = new Conveyor();
-        this.airplane = new Airplane();
+    private ArrayList<Passenger> passenger_queu;
+    private ArrayList<Employee> employee_queu;
+    private Interface airport_interface;
+    
+    public Airport(Interface airport_interface) throws IOException{
+        this.conveyor = new Conveyor(airport_interface);
+        this.airplane = new Airplane(airport_interface);
         this.writefile = new WriteFile();
+        this.passenger_queu = new ArrayList<>();
+        this.employee_queu = new ArrayList<>();
     }
 
     public Conveyor getConveyor(){
@@ -61,7 +68,7 @@ public class Airport {
         }
     }
 
-    public ArrayList<Employee> CreateEmployee(ArrayList<Employee> employee_queu) throws IOException {
+    public ArrayList<Employee> CreateEmployee() throws IOException {
 
         for (int i = 0; i < 2; i++) {
             Employee employee = new Employee("Empleado_" + String.valueOf(i + 1), conveyor, this.airplane);
@@ -84,10 +91,10 @@ public class Airport {
             text = "Se ha lanzado el " + employee.getId_employee();
 
             writefile.Writer(text);
-        }
+        } 
     }
 
-    
+    /*
     // Start and stop of threads
     public void Pause1Employee(ArrayList <Employee> employee_queu, String employee_stopped) {
 
@@ -150,7 +157,7 @@ public class Airport {
         passenger_queu.notifyAll();
         /*for (int i = 0; i<passenger_queu.size(); i++){
             passenger_queu.get(i).notify();
-        }*/
-    }
+        }
+    }*/
 
 }

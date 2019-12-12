@@ -40,38 +40,17 @@ public class Employee extends Thread {
 
      public void run() {
           while (true) {
-               this.suitcases.add(conveyor.TakeSuitcase());
-
-               System.out.println("El " + this.getId_employee() + " lleva " + suitcases.get(0).getSuitcase());
-               System.out.println("");
-               text = "El " + this.getId_employee() + " lleva " + suitcases.get(0).getSuitcase();
-              
-               try {
-                    writefile.Writer(text);
-               } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-               }
-
+               this.suitcases.add(conveyor.TakeSuitcase(this.id_employee));
+               
                try{
                     sleep(400 + (int)(700*Math.random()));  //wait between 0.4 y 0.7 sec
                } catch (InterruptedException e){}
                 
                try {
-                    this.airplane.LeaveSuitcaseAirplane(this.suitcases.remove(0));
+                    this.airplane.LeaveSuitcaseAirplane(this.suitcases.remove(0), this.id_employee);
                } catch (FileNotFoundException e2) {
-                    e2.printStackTrace();
                }
-
-               System.out.println("El "+ this.getId_employee() + " está volviendo");
-               System.out.println("");
-               text = "El "+ this.getId_employee() + " está volviendo";
                
-               try {
-                    writefile.Writer(text);
-               } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-               }
-
                try{
                     sleep(400 + (int)(700*Math.random()));  //wait between 0.4 y 0.7 sec
                 } catch (InterruptedException e){} 
