@@ -21,12 +21,14 @@ public class Passenger extends Thread {
     private Conveyor conveyor;
     private Suitcase suitcase_A;
     private Suitcase suitcase_B;
+    private Button button;
 
-    public Passenger(String id_passenger, Suitcase suitcase_A, Suitcase suitcase_B, Conveyor conveyor) {
+    public Passenger(String id_passenger, Suitcase suitcase_A, Suitcase suitcase_B, Conveyor conveyor, Button button) {
         this.id_passenger = id_passenger;
         this.suitcase_A = suitcase_A;
         this.suitcase_B = suitcase_B;
         this.conveyor = conveyor;
+        this.button = button;
     }
 
     public String getId_passenger() {
@@ -51,6 +53,8 @@ public class Passenger extends Thread {
         } catch (InterruptedException e) {
         }
        
+        button.CheckStopAll();
+
         try {
             this.conveyor.LeaveSuitcaseConveyor(suitcase_A);
         } catch (FileNotFoundException ex) {
@@ -61,6 +65,8 @@ public class Passenger extends Thread {
         try{
             sleep(500 + (int)(1000*Math.random()));  //wait between 0.5 y 1 sec
         } catch (InterruptedException e){}
+
+        button.CheckStopAll();
 
         try {
             this.conveyor.LeaveSuitcaseConveyor(suitcase_B);

@@ -23,30 +23,23 @@ public class Airport {
     private ArrayList<Passenger> passenger_queu;
     private ArrayList<Employee> employee_queu;
     private Interface airport_interface;
+    private Button button;
 
     
-    public Airport(Interface airport_interface) throws IOException{
+    public Airport(Interface airport_interface, Button button) throws IOException{
         this.conveyor = new Conveyor(airport_interface);
         this.airplane = new Airplane(airport_interface);
         this.writefile = new WriteFile();
         this.passenger_queu = new ArrayList<>();
         this.employee_queu = new ArrayList<>();
+        this.button = button;
     }
-
-    public Conveyor getConveyor(){
-        return this.conveyor;
-    }
-
-    public Airplane getAirplane(){
-        return this.airplane;
-    }
-    
 
     public ArrayList<Passenger> CreatePassenger() throws IOException {
 
         for (int i = 0; i < 40; i++) {
             Passenger passenger = new Passenger("Pasajero_" + String.valueOf(i + 1), new Suitcase("Pasajero_" + String.valueOf(i + 1) + "-Maleta_1"), 
-                                                new Suitcase("Pasajero_" + String.valueOf(i + 1) + "-Maleta_2"), this.conveyor);
+                                                new Suitcase("Pasajero_" + String.valueOf(i + 1) + "-Maleta_2"), this.conveyor, button);
             passenger_queu.add(passenger);
 
             System.out.println("Se ha creado el " + passenger.getId_passenger());
@@ -72,7 +65,7 @@ public class Airport {
     public ArrayList<Employee> CreateEmployee() throws IOException {
 
         for (int i = 0; i < 2; i++) {
-            Employee employee = new Employee("Empleado_" + String.valueOf(i + 1), conveyor, this.airplane);
+            Employee employee = new Employee("Empleado_" + String.valueOf(i + 1), conveyor, this.airplane, button);
             employee_queu.add(employee);
 
             System.out.println("Se ha creado el " + employee.getId_employee());

@@ -17,17 +17,15 @@ public class Employee extends Thread {
      private Airplane airplane;
      private WriteFile writefile;
      private String text;
-     private JTextField employee_working;
-     private JTextField employee_coming;
+     private Button button;
 
-     public Employee(String id_employee, Conveyor conveyor, Airplane airplane) {
+     public Employee(String id_employee, Conveyor conveyor, Airplane airplane, Button button) {
           this.id_employee = id_employee;
           this.suitcases = new ArrayList<>();
           this.conveyor = conveyor;
           this.airplane = airplane;
           this.writefile = new WriteFile();
-          this.employee_working = employee_working ;
-          this.employee_coming = employee_coming;
+          this.button = button;
      }
 
      public String getId_employee() {
@@ -40,12 +38,25 @@ public class Employee extends Thread {
 
      public void run() {
           while (true) {
+
+               if(this.getId_employee().equalsIgnoreCase("Empleado_1")){
+                    button.CheckStopE1();
+               } else button.CheckStopE2();
+
+               button.CheckStopAll();
+
                this.suitcases.add(conveyor.TakeSuitcase(this.id_employee));
                
                try{
                     sleep(400 + (int)(700*Math.random()));  //wait between 0.4 y 0.7 sec
                } catch (InterruptedException e){}
                 
+               if(this.getId_employee().equalsIgnoreCase("Empleado_1")){
+                    button.CheckStopE1();
+               } else button.CheckStopE2();
+
+               button.CheckStopAll();
+
                try {
                     this.airplane.LeaveSuitcaseAirplane(this.suitcases.remove(0), this.id_employee);
                } catch (FileNotFoundException e2) {
