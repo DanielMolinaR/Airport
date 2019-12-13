@@ -3,52 +3,56 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RMI;
+package rmi;
 import java.rmi.*;
 import java.io.*;
 import static java.lang.Thread.sleep;
-import java.net.MalformedURLException;
 import javax.swing.JOptionPane;
-
 
 /**
  *
  * @author Antonio
  */
 public class Client {
-    
-    private static CommonInterface look_up;
-    private static boolean condicion = true;
-    
-    public static void main(String args[]) throws MalformedURLException, RemoteException, NotBoundException{
-
+    public static void main(String args[])
+    {
         String respuesta = "";
+        Boolean condicion = true;
+        
         try
         {
-            while(true){
-                String consulta = JOptionPane.showInputDialog("¿Que quiere consultar? C = cinta, A = avion, B = cinta y avion :");
+            BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("¿Que quiere consultar? C = cinta, A = avión, T = ambos :");
+            String consulta = entrada.readLine();
+            consulta.toUpperCase();
+            CommonInterface RemoteObject = (CommonInterface) Naming.lookup("//localhost/Airport"); //Localiza el objeto distribuido
+            
+            while (condicion){
+                switch (consulta){
+                    case ("C"):
+                        respuesta = RemoteObject.Print();
+                        condicion = false;
+                        break;
+                    case ("A") :
+                        respuesta = RemoteObject.PrintA();
+                        condicion = false;
+                        break;
+                    case ("T"):
+                        respuesta = RemoteObject.Print();
+                        respuesta += "\n" + RemoteObject.PrintA();
+                        condicion = false;
+                        break;
+                    default:
+                        System.out.println("Has introducido un dato incorrecto vuelve a introducirlo por favor");
+                        System.out.println("¿Que quiere consultar? C = cinta, A = avión :");
+                        consulta = entrada.readLine();
 
-                look_up = (CommonInterface) Naming.lookup("//127.0.0.1/Airport");
-                
-                if (consulta.equalsIgnoreCase("c") ){
-                    String text = look_up.Print();
-
-                    JOptionPane.showMessageDialog(null, text);
                 }
-                else if (consulta.equalsIgnoreCase("a")){
-                    String text_a = look_up.Print();
-
-                    JOptionPane.showMessageDialog(null, text_a);
-                } else if (consulta.equalsIgnoreCase("t")){
-                    String text = look_up.Print() + "\n" + look_up.PrintA();
-                    JOptionPane.showMessageDialog(null, text);
-                } else JOptionPane.showMessageDialog(null, "Has introducido un dato incorrecto", "", JOptionPane.ERROR_MESSAGE);
-
-                sleep(1);
-                
             }
-         } //Para que dé tiempo a leer la respuesta antes de que se cierre la ventana
-        
+            
+            JOptionPane.showMessageDialog(null, respuesta);
+            sleep(1000); //Para que dé tiempo a leer la respuesta antes de que se cierre la ventana
+        }
         catch (Exception e)
         {
             System.out.println("Excepción : " + e.getMessage());
@@ -57,4 +61,3 @@ public class Client {
     }
 }
     
-

@@ -6,7 +6,7 @@
 package airport;
 
 import RMI.*;
-import RMI.Interfaceimplementation;
+import RMI.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -16,6 +16,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import rmi.Server;
 
 /**
  *
@@ -29,9 +30,12 @@ public class Interface extends javax.swing.JFrame {
     
     private Button button;
     private Server server;
-
+    
     public Interface() throws IOException {
         initComponents();
+        
+        this.server = new Server();
+
         
         this.button = new Button();
 
@@ -47,10 +51,7 @@ public class Interface extends javax.swing.JFrame {
         
         employee_queu = airport.CreateEmployee();
         
-        airport.StartEmployee(employee_queu);
-    
-        this.server = new Server();
-    
+        airport.StartEmployee(employee_queu);    
     }
     
     

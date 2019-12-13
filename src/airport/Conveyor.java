@@ -96,6 +96,7 @@ public class Conveyor {
                 if (id.equalsIgnoreCase("Empleado_1")){
                     airport_interface.ShowGoingE1(this.textE);
                 }else airport_interface.ShowGoingE2(this.textE);
+                
                 try {
                     this.writefile.Writer(textE);
                 } catch (FileNotFoundException ex) {

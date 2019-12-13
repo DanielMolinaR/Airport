@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RMI;
-
+package rmi;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-
-import airport.Airport;
 
 /**
  *
@@ -18,5 +15,5 @@ public interface CommonInterface extends Remote{
     
     String Print() throws RemoteException;
     String PrintA() throws RemoteException;
-   
+    
 }

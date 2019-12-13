@@ -51,7 +51,6 @@ public class Airport {
                                                 new Suitcase("Pasajero_" + String.valueOf(i + 1) + "-Maleta_2"), this.conveyor, button);
             passenger_queu.add(passenger);
 
-            System.out.println("Se ha creado el " + passenger.getId_passenger());
             text = "Se ha creado el " + passenger.getId_passenger();
 
             writefile.Writer(text);
@@ -64,7 +63,6 @@ public class Airport {
         for (Passenger passenger : passenger_queu) {
             passenger.start();
 
-            System.out.println("Se ha lanzado el " + passenger.getId_passenger());
             text = "Se ha lanzado el " + passenger.getId_passenger();
 
             writefile.Writer(text);
@@ -77,7 +75,6 @@ public class Airport {
             Employee employee = new Employee("Empleado_" + String.valueOf(i + 1), conveyor, this.airplane, button);
             employee_queu.add(employee);
 
-            System.out.println("Se ha creado el " + employee.getId_employee());
             text = "Se ha creado el " + employee.getId_employee();
 
             writefile.Writer(text);
@@ -90,7 +87,6 @@ public class Airport {
         for (Employee employee : employee_queu) {
             employee.start();
 
-            System.out.println("Se ha lanzado el " + employee.getId_employee());
             text = "Se ha lanzado el " + employee.getId_employee();
 
             writefile.Writer(text);

@@ -3,14 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package RMI;
-
+package rmi;
 import airport.*;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
 
 /**
  *
@@ -18,33 +14,19 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class Interfaceimplementation extends UnicastRemoteObject implements CommonInterface {
     
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
-    public Interfaceimplementation() throws RemoteException {
-        
-        try {
-
-            Naming.rebind("//localhost/MyServer", new Interfaceimplementation());            
-            System.err.println("Server ready");
-
-        } catch (Exception e) {
-
-            System.err.println("Server exception: " + e.toString());
-            e.printStackTrace();
-
-        }  
-        
-    }
-
-    public String Print(String text) throws RemoteException {
-        return text;    
-    }
+    private Conveyor conveyor;
+    private Airplane airplane;
     
-    public String PrintA(String text_a) throws RemoteException {
-        return text_a;    
+    public Interfaceimplementation() throws RemoteException{}
+    @Override
+    public String Print() throws RemoteException{
+        String text = conveyor.Print();
+        return text;
+    }
+    @Override
+    public String PrintA() throws RemoteException{
+        String text = airplane.PrintA();
+        return text;
     }
     
 }
