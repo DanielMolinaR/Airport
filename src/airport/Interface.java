@@ -5,6 +5,7 @@
  */
 package airport;
 
+import RMI.*;
 import RMI.Interfaceimplementation;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -27,6 +28,7 @@ public class Interface extends javax.swing.JFrame {
      */
     
     private Button button;
+    private Server server;
 
     public Interface() throws IOException {
         initComponents();
@@ -46,6 +48,9 @@ public class Interface extends javax.swing.JFrame {
         employee_queu = airport.CreateEmployee();
         
         airport.StartEmployee(employee_queu);
+    
+        this.server = new Server();
+    
     }
     
     
@@ -339,12 +344,6 @@ public class Interface extends javax.swing.JFrame {
         
         WriteFile writefile = new WriteFile();
         writefile.DeleteFile();
-        
-        try {
-            Interfaceimplementation server = new Interfaceimplementation();
-        } catch (RemoteException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         java.awt.EventQueue.invokeLater(() -> {
             try {

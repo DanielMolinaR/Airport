@@ -5,7 +5,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*package RMI;
+package RMI;
+
 import airport.*;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -17,7 +18,7 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author Antonio
  */
-/*public class Server {
+public class Server {
 
     public static void main(String[] args) {
         try {
@@ -35,4 +36,4 @@ import java.rmi.server.UnicastRemoteObject;
     
     }
     
-}*/
+}

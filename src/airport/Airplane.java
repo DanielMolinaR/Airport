@@ -66,7 +66,6 @@ public class Airplane {
             if (i%4==0){
                 text += "\n";
             }
-            System.out.print(i + (".-") + suitcases.getSuitcase() + " // ");
             text += i + (".-") + suitcases.getSuitcase() + " // ";
             i++;
         }

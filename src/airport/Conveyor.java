@@ -47,15 +47,11 @@ public class Conveyor {
     public void showConveyor(){
         int i=1;
         
-        System.out.println("La CINTA tiene: ");
             text = "La CINTA tiene: ";
             for (Suitcase suitcases : conveyor){
-                System.out.print(i + (".-") + suitcases.getSuitcase() + " // ");
                 text += i + (".-") + suitcases.getSuitcase() + " // ";
                 i++;
             }
-            System.out.println(" ");
-            System.out.println(" ");
     }
 
     public void LeaveSuitcaseConveyor(Suitcase suitcase) throws FileNotFoundException {
@@ -101,7 +97,7 @@ public class Conveyor {
                     airport_interface.ShowGoingE1(this.textE);
                 }else airport_interface.ShowGoingE2(this.textE);
                 try {
-                    this.writefile.Writer(text);
+                    this.writefile.Writer(textE);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(Conveyor.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -124,10 +120,8 @@ public class Conveyor {
         
         int i = 1;
                 
-        System.out.println("La CINTA tiene: ");
         text = "La CINTA tiene: ";
         for (Suitcase suitcases : conveyor){
-            System.out.print(i + (".-") + suitcases.getSuitcase() + " // ");
             text += i + (".-") + suitcases.getSuitcase() + " // ";
             i++;
         }
