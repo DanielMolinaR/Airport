@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package RMI;
-import java.rmi.*;
+
 import java.io.*;
+import java.rmi.Naming;
+
 import static java.lang.Thread.sleep;
 import javax.swing.JOptionPane;
 
