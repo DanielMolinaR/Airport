@@ -67,7 +67,14 @@ public class WriteFile {
     }
     
     public void Close(){
-        setClose(true);
+        this.close = true;
+        System.out.println("El writer se ha cerrado");
+        try {
+            Writer("--FIN--");
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 }
