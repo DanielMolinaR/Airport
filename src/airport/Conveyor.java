@@ -37,6 +37,7 @@ public class Conveyor {
         this.textE = new String();
     }
     
+    
      public Conveyor() {
         this.conveyor = new ArrayList<>();
         this.writefile = new WriteFile();
