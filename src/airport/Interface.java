@@ -6,43 +6,44 @@
 package airport;
 
 import RMI.*;
+import RMI.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.WindowConstants;
 
+import RMI.Server;
 
 /**
  *
  * @author Daniel
  */
-public class Server extends javax.swing.JFrame {
+public class Interface extends javax.swing.JFrame {
 
     /**
      * Creates new form Interface
      */
     
     private Button button;
-  
-
-    public Server() throws IOException {
+    private Server server;
+    private WindowAdapter windowlistener;
+    
+    public Interface() throws IOException {
         initComponents();
         
-       WriteFile writefile = new WriteFile();
-       
-       writefile.DeleteFile();
+        WriteFile writefile = new WriteFile();
+        writefile.DeleteFile();
         
+        this.server = new Server();
 
-        
+
         this.button = new Button();
 
         Airport airport = new Airport(this, button);
@@ -57,21 +58,7 @@ public class Server extends javax.swing.JFrame {
         
         employee_queu = airport.CreateEmployee();
         
-        airport.StartEmployee(employee_queu);
-        
-      
-        
-        try {
-        Interfaceimplementation RemoteObject =  new Interfaceimplementation();
-        Registry registry = LocateRegistry.createRegistry(1099);
-        Naming.rebind("//localhost/Airport",RemoteObject);
-            }
-        catch (Exception e)
-            {
-        System.out.println("Error: " + e.getMessage());
-        e.printStackTrace();
-            }
-        
+        airport.StartEmployee(employee_queu);  
         
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -79,10 +66,7 @@ public class Server extends javax.swing.JFrame {
                 writefile.Close();
             }
         } );
-
-       
     }
-    
     
 
     /**
@@ -109,13 +93,13 @@ public class Server extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
             }
         });
@@ -123,7 +107,7 @@ public class Server extends javax.swing.JFrame {
         jButton1.setText("Pausar empleado 1");
         jButton1.setMargin(new java.awt.Insets(2, 2, 2, 2));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -132,7 +116,7 @@ public class Server extends javax.swing.JFrame {
         jButton2.setEnabled(false);
         jButton2.setMargin(new java.awt.Insets(2, 2, 2, 2));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
@@ -140,7 +124,7 @@ public class Server extends javax.swing.JFrame {
         jButton3.setText("Pausar empleado 2");
         jButton3.setMargin(new java.awt.Insets(2, 2, 2, 2));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
@@ -149,7 +133,7 @@ public class Server extends javax.swing.JFrame {
         jButton4.setEnabled(false);
         jButton4.setMargin(new java.awt.Insets(2, 2, 2, 2));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
@@ -157,7 +141,7 @@ public class Server extends javax.swing.JFrame {
         jButton5.setText("Pausar todo");
         jButton5.setMargin(new java.awt.Insets(2, 2, 2, 2));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
@@ -166,7 +150,7 @@ public class Server extends javax.swing.JFrame {
         jButton6.setEnabled(false);
         jButton6.setMargin(new java.awt.Insets(2, 2, 2, 2));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(final java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
@@ -179,7 +163,7 @@ public class Server extends javax.swing.JFrame {
         jTextArea1.setMaximumSize(new java.awt.Dimension(20, 2147483647));
         jScrollPane2.setViewportView(jTextArea1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,49 +224,61 @@ public class Server extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
         jButton1.setEnabled(false);
+        jButton5.setEnabled(false);
         jButton2.setEnabled(true);
 
         button.SetPause1();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
 
         jButton2.setEnabled(false);
         jButton1.setEnabled(true);
+        
+                
+        if (jButton3.isEnabled()){
+            jButton5.setEnabled(true);
+        }
 
+        
         button.Resume1();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
 
         jButton3.setEnabled(false);
+        jButton5.setEnabled(false);
         jButton4.setEnabled(true);
-
+        
         button.SetPause2();
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
 
         jButton4.setEnabled(false);
         jButton3.setEnabled(true);
-
+        
+        if (jButton1.isEnabled()){
+            jButton5.setEnabled(true);
+        }
+        
         button.Resume2();
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButton5ActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-
+        
         jButton5.setEnabled(false);
         jButton1.setEnabled(false);
         jButton3.setEnabled(false);
@@ -294,7 +290,7 @@ public class Server extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButton6ActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
 
         jButton5.setEnabled(true);
@@ -308,62 +304,62 @@ public class Server extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jTextField2ActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextField1ActionPerformed(final java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    public void ShowConveyor(String text){
+    public void ShowConveyor(final String text){
         this.jTextField1.setText(text);
     }
     
-    public void ShowGoingE1(String text){
+    public void ShowGoingE1(final String text){
         jTextField2.setText(text);
     }
     
-    public void ShowGoingE2(String text){
+    public void ShowGoingE2(final String text){
         jTextField3.setText(text);
     }
     
-    public void ShowGettingbackE1(String text){
+    public void ShowGettingbackE1(final String text){
         jTextField2.setText(text);
     }
     
-    public void ShowGettingbackE2(String text){
+    public void ShowGettingbackE2(final String text){
         jTextField3.setText(text);
     }
     
-    public void ShowAirplane(String text){
+    public void ShowAirplane(final String text){
         jTextArea1.setText(text);
     }
     
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(final String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (final javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (final ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (final InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (final IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (final javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -372,21 +368,14 @@ public class Server extends javax.swing.JFrame {
 
         /* Create and display the form */
         
-        WriteFile writefile = new WriteFile();
-        writefile.DeleteFile();
-        
-                
-        
         java.awt.EventQueue.invokeLater(() -> {
             try {
-                new Server().setVisible(true);
+                new Interface().setVisible(true);
                 
-            } catch (IOException ex) {
-                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (final IOException ex) {
+                Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
             }
         }); 
-        
-        
         
     }
 

@@ -27,9 +27,9 @@ public class Conveyor {
     private Condition empty = locket_conveyor.newCondition();
     private WriteFile writefile;
     private String text, textE;
-    private Interface airport_interface;
+    private Server airport_interface;
 
-    public Conveyor(Interface airport_interface) throws IOException {
+    public Conveyor(Server airport_interface) throws IOException {
         this.airport_interface = airport_interface;
         this.conveyor = new ArrayList<>();
         this.writefile = new WriteFile();

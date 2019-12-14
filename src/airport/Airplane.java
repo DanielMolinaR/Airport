@@ -22,9 +22,9 @@ public class Airplane {
     private Lock locket_airplane = new ReentrantLock();
     private WriteFile writefile;
     private String text, textE;
-    private Interface airplane_interface;
+    private Server airplane_interface;
 
-    public Airplane(Interface airplane_interface) throws IOException {
+    public Airplane(Server airplane_interface) throws IOException {
         this.airplane_interface = airplane_interface;
         this.writefile = new WriteFile();
     }

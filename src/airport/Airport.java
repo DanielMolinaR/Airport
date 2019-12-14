@@ -22,11 +22,11 @@ public class Airport {
     private String text;
     private ArrayList<Passenger> passenger_queu;
     private ArrayList<Employee> employee_queu;
-    private Interface airport_interface;
+    private Server airport_interface;
     private Button button;
 
     
-    public Airport(Interface airport_interface, Button button) throws IOException{
+    public Airport(Server airport_interface, Button button) throws IOException{
         this.conveyor = new Conveyor(airport_interface);
         this.airplane = new Airplane(airport_interface);
         this.writefile = new WriteFile();

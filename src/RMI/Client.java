@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rmi;
+package RMI;
 import java.rmi.*;
 import java.io.*;
 import static java.lang.Thread.sleep;
@@ -32,6 +32,7 @@ public class Client {
                     case ("C"):
                         respuesta = RemoteObject.Print();
                         condicion = false;
+                        System.out.println(respuesta);
                         break;
                     case ("A") :
                         respuesta = RemoteObject.PrintA();

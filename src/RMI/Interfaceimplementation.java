@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rmi;
+package RMI;
 import airport.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -17,7 +17,10 @@ public class Interfaceimplementation extends UnicastRemoteObject implements Comm
     private Conveyor conveyor;
     private Airplane airplane;
     
-    public Interfaceimplementation() throws RemoteException{}
+    public Interfaceimplementation() throws RemoteException{
+    this.conveyor = conveyor;
+    this.airplane= airplane;
+            }
     @Override
     public String Print() throws RemoteException{
         String text = conveyor.Print();
