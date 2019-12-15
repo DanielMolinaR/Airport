@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 // Si vale false(abierto) el proceso puede continuar. Si es true(cerrado) el proceso se detiene
 public class Button
 {
-    private boolean close=false;
+  
     private final Lock lock_e1 = new ReentrantLock();
     private final Lock lock_e2 = new ReentrantLock();
     private final Lock lock_global = new ReentrantLock();

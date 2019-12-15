@@ -45,15 +45,7 @@ public class Conveyor {
         this.textE = new String();
     }
 
-    public void showConveyor(){
-        int i=1;
-        
-            text = "La CINTA tiene: ";
-            for (Suitcase suitcases : conveyor){
-                text += i + (".-") + suitcases.getSuitcase() + " // ";
-                i++;
-            }
-    }
+
 
     public void LeaveSuitcaseConveyor(Suitcase suitcase) throws FileNotFoundException {
 
@@ -127,6 +119,7 @@ public class Conveyor {
             text += i + (".-") + suitcases.getSuitcase() + " // ";
             i++;
         }
+    
         
         return text;
     }

@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 package RMI;
-
+import java.rmi.*;
 import java.io.*;
-import java.rmi.Naming;
-
 import static java.lang.Thread.sleep;
 import javax.swing.JOptionPane;
 
@@ -20,16 +18,19 @@ public class Client {
     {
         String respuesta = "";
         Boolean condicion = true;
-        
+        CommonInterface RemoteObject;
+       
         try
         {
             BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("¿Que quiere consultar? C = cinta, A = avión, T = ambos :");
             String consulta = entrada.readLine();
-            consulta.toUpperCase();
-            CommonInterface RemoteObject = (CommonInterface) Naming.lookup("//localhost/Airport"); //Localiza el objeto distribuido
+            consulta = consulta.toUpperCase();
             
-            while (condicion){
+            RemoteObject = (CommonInterface) Naming.lookup("//127.0.0.1/Airport"); //Localiza el objeto distribuido
+            
+            
+            //while (condicion){
                 switch (consulta){
                     case ("C"):
                         respuesta = RemoteObject.Print();
@@ -50,11 +51,13 @@ public class Client {
                         System.out.println("¿Que quiere consultar? C = cinta, A = avión :");
                         consulta = entrada.readLine();
 
-                }
+                //}
             }
             
+            System.out.println(respuesta);
             JOptionPane.showMessageDialog(null, respuesta);
-            sleep(1000); //Para que dé tiempo a leer la respuesta antes de que se cierre la ventana
+            System.out.println("SE IMPRIMEEEE¿?¿?¿?¿?");
+            sleep(100); //Para que dé tiempo a leer la respuesta antes de que se cierre la ventana
         }
         catch (Exception e)
         {

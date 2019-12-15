@@ -8,11 +8,8 @@ package airport;
 import RMI.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.Naming;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
@@ -32,6 +29,8 @@ public class Server extends javax.swing.JFrame {
      */
     
     private Button button;
+    private Conveyor conveyor;
+    private Airplane airplane;
   
 
     public Server() throws IOException {
@@ -59,19 +58,14 @@ public class Server extends javax.swing.JFrame {
         
         airport.StartEmployee(employee_queu);
         
+        conveyor = new Conveyor();
+        
+        airplane = new Airplane(this);
       
         
-        try {
-        Interfaceimplementation RemoteObject =  new Interfaceimplementation();
+        Interfaceimplementation RemoteObject =  new Interfaceimplementation(this.conveyor, this.airplane);
         Registry registry = LocateRegistry.createRegistry(1099);
-        Naming.rebind("//localhost/Airport",RemoteObject);
-            }
-        catch (Exception e)
-            {
-        System.out.println("Error: " + e.getMessage());
-        e.printStackTrace();
-            }
-        
+        Naming.rebind("//127.0.0.1/Airport",RemoteObject);
         
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -244,7 +238,9 @@ public class Server extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         jButton1.setEnabled(false);
+        jButton5.setEnabled(false);
         jButton2.setEnabled(true);
+     
 
         button.SetPause1();
         
@@ -255,6 +251,10 @@ public class Server extends javax.swing.JFrame {
 
         jButton2.setEnabled(false);
         jButton1.setEnabled(true);
+        if (jButton3.isEnabled())
+        {
+            jButton5.setEnabled(true);
+        }
 
         button.Resume1();
         
@@ -264,6 +264,7 @@ public class Server extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         jButton3.setEnabled(false);
+        jButton5.setEnabled(false);
         jButton4.setEnabled(true);
 
         button.SetPause2();
@@ -275,6 +276,12 @@ public class Server extends javax.swing.JFrame {
 
         jButton4.setEnabled(false);
         jButton3.setEnabled(true);
+        
+         if (jButton1.isEnabled())
+        {
+            jButton5.setEnabled(true);
+        }
+        
 
         button.Resume2();
 
@@ -372,9 +379,7 @@ public class Server extends javax.swing.JFrame {
 
         /* Create and display the form */
         
-        WriteFile writefile = new WriteFile();
-        writefile.DeleteFile();
-        
+     
                 
         
         java.awt.EventQueue.invokeLater(() -> {

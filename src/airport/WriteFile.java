@@ -34,10 +34,6 @@ public class WriteFile {
     public WriteFile() {
     }
 
-    public void setClose(boolean close) {
-        this.close = close;
-    }    
-
     public void Writer(String text) throws FileNotFoundException {
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         try {
@@ -67,14 +63,7 @@ public class WriteFile {
     }
     
     public void Close(){
-        this.close = true;
-        System.out.println("El writer se ha cerrado");
-        try {
-            Writer("--FIN--");
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        close = true;
     }
 
 }

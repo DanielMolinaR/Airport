@@ -17,19 +17,19 @@ public class Interfaceimplementation extends UnicastRemoteObject implements Comm
     private Conveyor conveyor;
     private Airplane airplane;
     
-    public Interfaceimplementation() throws RemoteException{
+    public Interfaceimplementation(Conveyor conveyor, Airplane airplane) throws RemoteException{
     this.conveyor = conveyor;
     this.airplane= airplane;
             }
     @Override
     public String Print() throws RemoteException{
-        String text = conveyor.Print();
-        return text;
+        
+        return conveyor.Print();
     }
     @Override
     public String PrintA() throws RemoteException{
-        String text = airplane.PrintA();
-        return text;
+        
+        return airplane.PrintA();
     }
     
 }

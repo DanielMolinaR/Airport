@@ -32,7 +32,7 @@ public class Airplane {
     public Airplane() {
         this.writefile = new WriteFile();
     }
-
+   
     public void LeaveSuitcaseAirplane(Suitcase suitcase, String id) throws FileNotFoundException {
         try {
             locket_airplane.lock();
